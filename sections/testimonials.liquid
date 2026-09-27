@@ -1,0 +1,141 @@
+<section class="testimonials section-padding" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="section-intro section-intro--center" data-reveal="fade">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-heading section-heading--center font-heading">{{ section.settings.heading }}</h2>
+    </div>
+  </div>
+
+  <div class="testimonials__wrap page-width" data-slider-wrap>
+    <ul class="testimonials__slider" data-slider tabindex="0" aria-label="{{ section.settings.heading }}">
+      {%- for block in section.blocks -%}
+        <li class="testimonial-card hover-lift" {{ block.shopify_attributes }}>
+          {%- if block.settings.rating > 0 -%}
+            <div class="testimonial-card__stars" aria-hidden="true">
+              {%- for i in (1..5) -%}
+                {% render 'icon', icon: 'star', class: 'icon testimonial-card__star' %}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
+          <p class="testimonial-card__quote">&laquo; {{ block.settings.quote }} &raquo;</p>
+          <div class="testimonial-card__author">
+            {%- if block.settings.avatar -%}
+              <img src="{{ block.settings.avatar | image_url: width: 80 }}" alt="" width="40" height="40" loading="lazy" class="testimonial-card__avatar">
+            {%- endif -%}
+            <div>
+              <p class="testimonial-card__name">{{ block.settings.name }}</p>
+              {%- if block.settings.context != blank -%}<p class="testimonial-card__context text-muted">{{ block.settings.context }}</p>{%- endif -%}
+            </div>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    <div class="slider-controls hide-mobile">
+      <button type="button" class="icon-link slider-control" data-slider-prev aria-label="{{ 'general.accessibility.previous_slide' | t }}">{% render 'icon', icon: 'chevron-left' %}</button>
+      <button type="button" class="icon-link slider-control" data-slider-next aria-label="{{ 'general.accessibility.next_slide' | t }}">{% render 'icon', icon: 'chevron-right' %}</button>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'slider.js' | asset_url }}" defer="defer"></script>
+
+{% stylesheet %}
+.testimonials__wrap {
+  position: relative;
+}
+
+.testimonials__slider {
+  display: flex;
+  gap: 1.25rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+}
+
+.testimonials__slider::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonial-card {
+  flex: 0 0 auto;
+  width: min(85vw, 360px);
+  scroll-snap-align: start;
+  background: var(--color-background-alt);
+  border-radius: 18px;
+  padding: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.testimonial-card__stars {
+  display: flex;
+  gap: 0.15rem;
+}
+
+.testimonial-card__star {
+  width: 0.95rem;
+  height: 0.95rem;
+  color: var(--color-accent);
+}
+
+.testimonial-card__quote {
+  font-size: 1.02rem;
+  line-height: 1.55;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: auto;
+}
+
+.testimonial-card__avatar {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonial-card__name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.testimonial-card__context {
+  font-size: 0.8rem;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Témoignages",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ils ont offert LAMEA" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Ce qu'ils en disent" }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Témoignage",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Note (étoiles)", "min": 0, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Témoignage", "default": "Le cadeau le plus émouvant que j'ai jamais offert." },
+        { "type": "image_picker", "id": "avatar", "label": "Photo (facultative)" },
+        { "type": "text", "id": "name", "label": "Nom", "default": "Camille" },
+        { "type": "text", "id": "context", "label": "Contexte", "default": "Cadeau pour son copain" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "testimonial", "settings": {} },
+      { "type": "testimonial", "settings": { "name": "Julien", "context": "Anniversaire de couple", "quote": "Elle a pleuré en le déballant. Un vrai succès." } },
+      { "type": "testimonial", "settings": { "name": "Sarah", "context": "Cadeau longue distance", "quote": "On se sent moins loin l'un de l'autre depuis." } }
+    ]
+  },
+  "presets": [{ "name": "Témoignages" }]
+}
+{% endschema %}

@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "intro": {
+      "type": "media-with-text",
+      "settings": {
+        "eyebrow": "Notre histoire",
+        "heading": "Née d'une envie simple : garder l'amour vivant",
+        "text": "<p>LAMEA est née d'un constat : nos souvenirs les plus précieux dorment dans nos téléphones, oubliés au fil des mises à jour. Nous avons voulu leur offrir une place à la hauteur de ce qu'ils représentent.</p>",
+        "image_position": "left"
+      }
+    },
+    "story": {
+      "type": "story-section"
+    },
+    "values": {
+      "type": "product-benefits",
+      "settings": {
+        "eyebrow": "Ce qui nous guide",
+        "heading": "Notre exigence"
+      }
+    },
+    "final-cta": {
+      "type": "final-cta"
+    }
+  },
+  "order": ["intro", "story", "values", "final-cta"]
+}

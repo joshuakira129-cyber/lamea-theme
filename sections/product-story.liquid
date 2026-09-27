@@ -1,0 +1,75 @@
+<section class="product-story" {{ section.shopify_attributes }}>
+  <div class="product-story__media" data-parallax-speed="0.06">
+    {%- if section.settings.image -%}
+      <img src="{{ section.settings.image | image_url: width: 1800 }}" alt="{{ section.settings.image.alt | escape }}" width="{{ section.settings.image.width }}" height="{{ section.settings.image.height }}" loading="lazy">
+    {%- else -%}
+      <span class="placeholder-media">LAMEA_COUPLE_02_PLACEHOLDER</span>
+    {%- endif -%}
+  </div>
+  <div class="page-width product-story__content" data-reveal="fade">
+    <p class="product-story__quote font-heading">&laquo; {{ section.settings.quote }} &raquo;</p>
+    {%- if section.settings.attribution != blank -%}
+      <p class="product-story__attribution">{{ section.settings.attribution }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.product-story {
+  position: relative;
+  min-height: 58vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  color: #fff;
+  text-align: center;
+}
+
+.product-story__media {
+  position: absolute;
+  inset: 0;
+  height: 110%;
+  top: -5%;
+}
+
+.product-story__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.product-story__content {
+  position: relative;
+  z-index: 1;
+  max-width: 42rem;
+  margin-inline: auto;
+  padding-block: clamp(3rem, 2.4rem + 2.5vw, 5rem);
+}
+
+.product-story__quote {
+  font-size: clamp(1.5rem, 1.25rem + 1.2vw, 2.2rem);
+  line-height: 1.4;
+}
+
+.product-story__attribution {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Storytelling produit",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image de fond" },
+    { "type": "textarea", "id": "quote", "label": "Citation", "default": "Parce que certains moments méritent plus qu'une place dans votre téléphone." },
+    { "type": "text", "id": "attribution", "label": "Attribution (facultative)" }
+  ],
+  "presets": [{ "name": "Storytelling produit" }]
+}
+{% endschema %}

@@ -1,0 +1,109 @@
+<section class="account-page account-page--wide page-width section-padding">
+  <div class="account-header" data-reveal="fade">
+    <h1 class="font-heading">{{ 'customer.orders.order_number' | t }} {{ order.name }}</h1>
+    <a href="{{ routes.account_url }}" class="link link--muted">{{ 'customer.account.return' | t }}</a>
+  </div>
+
+  <p class="text-muted">{{ order.created_at | date: '%d.%m.%Y' }}</p>
+
+  <table class="order-table">
+    <thead>
+      <tr>
+        <th scope="col">Produit</th>
+        <th scope="col">Prix</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for line_item in order.line_items -%}
+        <tr>
+          <td data-label="Produit">{{ line_item.title }}</td>
+          <td data-label="Prix">{{ line_item.price | money }}</td>
+          <td data-label="Quantité">{{ line_item.quantity }}</td>
+          <td data-label="Total">{{ line_item.final_line_price | money }}</td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+
+  <div class="order-summary">
+    <p><span>{{ 'customer.orders.total' | t }}</span><span>{{ order.total_price | money }}</span></p>
+  </div>
+
+  <div class="order-addresses">
+    {%- if order.shipping_address -%}
+      <div>
+        <h2 class="account-section-title">Adresse de livraison</h2>
+        {{ order.shipping_address | format_address }}
+      </div>
+    {%- endif -%}
+    {%- if order.billing_address -%}
+      <div>
+        <h2 class="account-section-title">Adresse de facturation</h2>
+        {{ order.billing_address | format_address }}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% style %}
+.account-page--wide {
+  display: block;
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.account-section-title {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  margin-bottom: 1rem;
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 1.5rem;
+}
+
+.order-table th,
+.order-table td {
+  text-align: left;
+  padding: 0.85rem 0.5rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.9rem;
+}
+
+.order-summary {
+  display: flex;
+  justify-content: flex-end;
+  font-weight: 600;
+  margin-bottom: 2.5rem;
+}
+
+.order-summary p {
+  display: flex;
+  gap: 1rem;
+}
+
+.order-addresses {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+@media screen and (max-width: 749px) {
+  .order-addresses {
+    grid-template-columns: 1fr;
+  }
+}
+{% endstyle %}

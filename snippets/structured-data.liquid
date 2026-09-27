@@ -1,0 +1,49 @@
+{% comment %}
+  JSON-LD structured data. Organization is sitewide; Product schema is
+  added on product pages only.
+{% endcomment %}
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "url": {{ request.origin | append: page.url | default: shop.url | json }},
+    {% if settings.logo -%}
+    "logo": {{ settings.logo | image_url: width: 512 | prepend: "https:" | json }},
+    {%- endif %}
+    "sameAs": [
+      {% if settings.social_instagram %}{{ settings.social_instagram | json }},{% endif %}
+      {% if settings.social_tiktok %}{{ settings.social_tiktok | json }},{% endif %}
+      {% if settings.social_facebook %}{{ settings.social_facebook | json }},{% endif %}
+      {% if settings.social_pinterest %}{{ settings.social_pinterest | json }},{% endif %}
+      {% if settings.social_youtube %}{{ settings.social_youtube | json }}{% endif %}
+      null
+    ]
+  }
+</script>
+
+{% if template contains 'product' and product %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org/",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "description": {{ product.description | strip_html | json }},
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+      "brand": {
+        "@type": "Brand",
+        "name": {{ shop.name | json }}
+      },
+      {% if product.featured_image -%}
+      "image": [{{ product.featured_image | image_url: width: 1200 | prepend: "https:" | json }}],
+      {%- endif %}
+      "offers": {
+        "@type": "Offer",
+        "url": {{ shop.url | append: product.url | json }},
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "price": {{ product.selected_or_first_available_variant.price | divided_by: 100.0 | json }},
+        "availability": "https://schema.org/{% if product.selected_or_first_available_variant.available %}InStock{% else %}OutOfStock{% endif %}"
+      }
+    }
+  </script>
+{% endif %}

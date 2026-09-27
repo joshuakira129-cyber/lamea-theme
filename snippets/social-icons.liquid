@@ -1,0 +1,17 @@
+<ul class="social-icons">
+  {%- if settings.social_instagram -%}
+    <li><a href="{{ settings.social_instagram }}" class="icon-link" target="_blank" rel="noopener">{% render 'icon', icon: 'instagram' %}<span class="visually-hidden">Instagram</span></a></li>
+  {%- endif -%}
+  {%- if settings.social_tiktok -%}
+    <li><a href="{{ settings.social_tiktok }}" class="icon-link" target="_blank" rel="noopener">{% render 'icon', icon: 'tiktok' %}<span class="visually-hidden">TikTok</span></a></li>
+  {%- endif -%}
+  {%- if settings.social_facebook -%}
+    <li><a href="{{ settings.social_facebook }}" class="icon-link" target="_blank" rel="noopener">{% render 'icon', icon: 'facebook' %}<span class="visually-hidden">Facebook</span></a></li>
+  {%- endif -%}
+  {%- if settings.social_pinterest -%}
+    <li><a href="{{ settings.social_pinterest }}" class="icon-link" target="_blank" rel="noopener">{% render 'icon', icon: 'pinterest' %}<span class="visually-hidden">Pinterest</span></a></li>
+  {%- endif -%}
+  {%- if settings.social_youtube -%}
+    <li><a href="{{ settings.social_youtube }}" class="icon-link" target="_blank" rel="noopener">{% render 'icon', icon: 'youtube' %}<span class="visually-hidden">YouTube</span></a></li>
+  {%- endif -%}
+</ul>

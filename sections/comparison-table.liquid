@@ -1,0 +1,146 @@
+<section class="comparison section-padding" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="section-intro section-intro--center" data-reveal="fade">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-heading section-heading--center font-heading">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="comparison__table-wrap" data-reveal="fade">
+      <table class="comparison__table">
+        <thead>
+          <tr>
+            <th scope="col" class="comparison__feature-col"></th>
+            <th scope="col" class="comparison__lamea-col">{{ section.settings.column_lamea }}</th>
+            <th scope="col">{{ section.settings.column_other }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for block in section.blocks -%}
+            <tr {{ block.shopify_attributes }}>
+              <th scope="row" data-label="">{{ block.settings.feature }}</th>
+              <td data-label="{{ section.settings.column_lamea }}" class="comparison__lamea-col">
+                {%- if block.settings.lamea_value != blank -%}
+                  {{ block.settings.lamea_value }}
+                {%- else -%}
+                  <span class="comparison__check">{% render 'icon', icon: 'check' %}</span>
+                {%- endif -%}
+              </td>
+              <td data-label="{{ section.settings.column_other }}">
+                {{ block.settings.other_value }}
+              </td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.comparison__table-wrap {
+  overflow-x: auto;
+}
+
+.comparison__table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+.comparison__table th,
+.comparison__table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.92rem;
+}
+
+.comparison__table thead th {
+  font-family: var(--font-heading-family);
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+
+.comparison__lamea-col {
+  background: var(--color-background-alt);
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
+}
+
+.comparison__check {
+  color: var(--color-accent);
+  display: inline-flex;
+}
+
+.comparison__check .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+@media screen and (max-width: 600px) {
+  .comparison__table-wrap {
+    overflow-x: visible;
+  }
+  .comparison__table, .comparison__table thead, .comparison__table tbody, .comparison__table th, .comparison__table td, .comparison__table tr {
+    display: block;
+    min-width: 0;
+  }
+  .comparison__table thead {
+    display: none;
+  }
+  .comparison__table tr {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .comparison__table th[scope="row"] {
+    border-bottom: none;
+    padding-bottom: 0.25rem;
+    font-weight: 600;
+  }
+  .comparison__table td {
+    border-bottom: none;
+    padding: 0.25rem 0;
+  }
+  .comparison__table td[data-label]::before {
+    content: attr(data-label) ": ";
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+  .comparison__lamea-col {
+    border-radius: 0;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Tableau comparatif",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "La comparaison" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "LAMEA face à un cadre classique" },
+    { "type": "text", "id": "column_lamea", "label": "Colonne 1", "default": "LAMEA" },
+    { "type": "text", "id": "column_other", "label": "Colonne 2", "default": "Cadre photo classique" }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Ligne",
+      "settings": [
+        { "type": "text", "id": "feature", "label": "Caractéristique", "default": "Photos et vidéos" },
+        { "type": "text", "id": "lamea_value", "label": "Valeur LAMEA (laisser vide pour une coche)" },
+        { "type": "text", "id": "other_value", "label": "Valeur autre", "default": "Photo uniquement" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "row", "settings": { "feature": "Photos et vidéos" } },
+      { "type": "row", "settings": { "feature": "Plusieurs souvenirs sur un seul cadre", "other_value": "1 seule photo" } },
+      { "type": "row", "settings": { "feature": "Personnalisable en quelques minutes", "other_value": "Impression à commander" } },
+      { "type": "row", "settings": { "feature": "Prêt à offrir", "other_value": "Nécessite un cadrage" } }
+    ]
+  },
+  "presets": [{ "name": "Tableau comparatif" }]
+}
+{% endschema %}

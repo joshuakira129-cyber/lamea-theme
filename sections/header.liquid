@@ -1,0 +1,326 @@
+{%- liquid
+  assign is_transparent = false
+  if section.settings.transparent_on_home and template.name == 'index'
+    assign is_transparent = true
+  endif
+-%}
+<header
+  class="site-header{% if is_transparent %} site-header--transparent{% endif %}"
+  data-site-header
+  {{ section.shopify_attributes }}
+>
+  <div class="page-width site-header__inner">
+    <div class="site-header__side site-header__side--start">
+      <button type="button" class="icon-link site-header__menu-toggle hide-desktop" data-menu-toggle aria-expanded="false" aria-controls="MobileNav">
+        {% render 'icon', icon: 'menu' %}
+        <span class="visually-hidden">Menu</span>
+      </button>
+
+      <nav class="site-nav hide-mobile" aria-label="Navigation principale">
+        <ul class="site-nav__list">
+          {%- for link in section.settings.main_menu.links -%}
+            <li class="site-nav__item">
+              <a href="{{ link.url }}" class="site-nav__link"{% if link.active %} aria-current="page"{% endif %}>{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </div>
+
+    <div class="site-header__logo">
+      <a href="{{ routes.root_url }}" class="site-header__logo-link">
+        {%- if settings.logo -%}
+          <img
+            src="{{ settings.logo | image_url: width: 320 }}"
+            alt="{{ shop.name }}"
+            width="{{ settings.logo_width }}"
+            height="{{ settings.logo_width | divided_by: settings.logo.aspect_ratio | default: settings.logo_width }}"
+            loading="eager"
+            style="width: {{ settings.logo_width }}px; height: auto;"
+          >
+        {%- else -%}
+          <span class="site-header__wordmark">{{ shop.name | default: 'LAMEA' }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <div class="site-header__side site-header__side--end">
+      {%- if section.settings.show_search -%}
+        <a href="{{ routes.search_url }}" class="icon-link">
+          {% render 'icon', icon: 'search' %}
+          <span class="visually-hidden">{{ 'general.search.title' | t }}</span>
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.show_account -%}
+        <a href="{{ routes.account_url }}" class="icon-link hide-mobile">
+          {% render 'icon', icon: 'account' %}
+          <span class="visually-hidden">{{ 'customer.account_fallback' | t }}</span>
+        </a>
+      {%- endif -%}
+
+      <a href="{{ routes.cart_url }}" class="icon-link site-header__cart" data-cart-icon-bubble aria-label="{{ 'cart.general.title' | t }}">
+        {% render 'icon', icon: 'cart' %}
+        <span class="site-header__cart-count{% if cart.item_count == 0 %} hidden{% endif %}" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-nav-overlay" data-mobile-nav-overlay data-open="false"></div>
+<div id="MobileNav" class="mobile-nav" data-mobile-nav data-open="false">
+  <div class="mobile-nav__header">
+    <span class="font-heading mobile-nav__title">Menu</span>
+    <button type="button" class="icon-link" data-mobile-nav-close aria-label="{{ 'general.accessibility.close' | t }}">
+      {% render 'icon', icon: 'close' %}
+    </button>
+  </div>
+  <nav aria-label="Navigation mobile">
+    <ul class="mobile-nav__list">
+      {%- for link in section.settings.main_menu.links -%}
+        <li>
+          <a href="{{ link.url }}" class="mobile-nav__link">{{ link.title }}</a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </nav>
+  <div class="mobile-nav__footer">
+    {%- if section.settings.show_account -%}
+      <a href="{{ routes.account_url }}" class="mobile-nav__link mobile-nav__link--muted">{{ 'customer.account_fallback' | t }}</a>
+    {%- endif -%}
+    {%- render 'social-icons' -%}
+  </div>
+</div>
+
+{% stylesheet %}
+.site-header {
+  position: relative;
+  z-index: 40;
+  background: var(--color-header-bg);
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
+}
+
+.site-header--transparent {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  background: transparent;
+  border-color: transparent;
+}
+
+.site-header--transparent .site-nav__link,
+.site-header--transparent .site-header__wordmark,
+.site-header--transparent .icon-link {
+  color: #fff;
+}
+
+.site-header--transparent.is-scrolled {
+  position: sticky;
+  background: var(--color-header-bg);
+}
+
+.site-header--transparent.is-scrolled .site-nav__link,
+.site-header--transparent.is-scrolled .site-header__wordmark,
+.site-header--transparent.is-scrolled .icon-link {
+  color: var(--color-text);
+}
+
+.site-header:not(.site-header--transparent) {
+  position: sticky;
+  top: 0;
+}
+
+.site-header.is-scrolled {
+  border-color: var(--color-border);
+  box-shadow: 0 8px 24px -20px rgba(28, 25, 23, 0.4);
+}
+
+.site-header__inner {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  min-height: 4.75rem;
+  gap: 1rem;
+}
+
+.site-header__side {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.site-header__side--end {
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.site-header__logo {
+  display: flex;
+  justify-content: center;
+}
+
+.site-header__wordmark {
+  font-family: var(--font-heading-family);
+  font-size: 1.5rem;
+  letter-spacing: 0.06em;
+}
+
+.site-nav__list {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.site-nav__link {
+  font-size: 0.92rem;
+  font-weight: 500;
+  position: relative;
+  padding-bottom: 2px;
+}
+
+.site-nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transition: right 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.theme-hover-enabled .site-nav__link:hover::after {
+  right: 0;
+}
+
+.site-header__cart {
+  position: relative;
+}
+
+.site-header__cart-count {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  min-width: 1.1rem;
+  height: 1.1rem;
+  padding: 0 0.25rem;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-accent-text);
+  font-size: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Mobile nav */
+.mobile-nav-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(28, 25, 23, 0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 49;
+}
+
+.mobile-nav-overlay[data-open="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: min(88vw, 360px);
+  background: var(--color-background);
+  z-index: 50;
+  transform: translateX(-100%);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem;
+  overflow-y: auto;
+}
+
+.mobile-nav[data-open="true"] {
+  transform: translateX(0);
+}
+
+.mobile-nav__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-nav__title {
+  font-size: 1.25rem;
+}
+
+.mobile-nav__list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mobile-nav__link {
+  display: block;
+  padding: 0.85rem 0.25rem;
+  font-size: 1.05rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.mobile-nav__link--muted {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  border-bottom: none;
+}
+
+.mobile-nav__footer {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "main_menu",
+      "label": "Menu principal",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_on_home",
+      "label": "Header transparent sur la page d'accueil",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Afficher la recherche",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Afficher le compte client",
+      "default": true
+    }
+  ]
+}
+{% endschema %}

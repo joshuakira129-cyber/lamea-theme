@@ -1,0 +1,27 @@
+{%- comment -%} Accepts: product {%- endcomment -%}
+{%- if product and product.available -%}
+  <div class="cart-upsell" data-cart-upsell>
+    <p class="cart-upsell__label text-muted">Vous aimerez aussi</p>
+    <div class="cart-upsell__product">
+      <a href="{{ product.url }}" class="cart-upsell__media aspect-ratio" style="aspect-ratio: 1/1;">
+        {%- if product.featured_image -%}
+          <img src="{{ product.featured_image | image_url: width: 160 }}" alt="{{ product.featured_image.alt | escape }}" width="80" height="80" loading="lazy">
+        {%- else -%}
+          <span class="placeholder-media">LAMEA_PRODUCT_FRONT_PLACEHOLDER</span>
+        {%- endif -%}
+      </a>
+      <div class="cart-upsell__info">
+        <a href="{{ product.url }}" class="cart-upsell__title">{{ product.title }}</a>
+        <span class="cart-upsell__price">{{ product.price | money }}</span>
+      </div>
+      <button
+        type="button"
+        class="button button--small button--secondary"
+        data-cart-upsell-add
+        data-variant-id="{{ product.selected_or_first_available_variant.id }}"
+      >
+        {{ 'products.product.add_to_cart' | t }}
+      </button>
+    </div>
+  </div>
+{%- endif -%}

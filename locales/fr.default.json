@@ -1,0 +1,184 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Étiquetés « {{ tags }} »",
+      "page": "Page {{ page }}"
+    },
+    "accessibility": {
+      "skip_to_content": "Passer au contenu",
+      "close": "Fermer",
+      "next_slide": "Diapositive suivante",
+      "previous_slide": "Diapositive précédente",
+      "play_video": "Lire la vidéo",
+      "total_reviews": "Nombre total d'avis"
+    },
+    "search": {
+      "title": "Rechercher",
+      "placeholder": "Rechercher un cadre, une aide…",
+      "submit": "Rechercher",
+      "no_results_html": "Aucun résultat pour « {{ terms }} ».",
+      "results_for_html": "Résultats pour « {{ terms }} »"
+    },
+    "newsletter": {
+      "heading": "Restez inspiré·e",
+      "text": "Idées cadeaux, nouveautés et offres, directement dans votre boîte mail.",
+      "email_placeholder": "Votre adresse e-mail",
+      "submit": "S'inscrire",
+      "success": "Merci, votre inscription est confirmée.",
+      "error": "Une erreur est survenue, veuillez réessayer."
+    },
+    "social": {
+      "follow_us": "Nous suivre"
+    },
+    "404": {
+      "title": "Page introuvable",
+      "subtext": "Ce souvenir semble s'être égaré. La page que vous cherchez n'existe pas ou plus.",
+      "link": "Retourner à l'accueil"
+    },
+    "password_page": {
+      "opening_soon": "Ouverture prochaine",
+      "login_form_heading": "Entrer avec un mot de passe",
+      "login_password_button": "Entrer",
+      "signup_form_heading": "Soyez averti·e du lancement",
+      "admin_link_html": "Vous êtes le propriétaire de la boutique ? <a href=\"/admin\" class=\"link\">Connectez-vous ici</a>"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "buy_now": "Créer mon LAMEA",
+      "sold_out": "Épuisé",
+      "unavailable": "Indisponible",
+      "on_sale": "Promotion",
+      "quantity": {
+        "label": "Quantité",
+        "decrease": "Diminuer la quantité",
+        "increase": "Augmenter la quantité"
+      },
+      "price": {
+        "from_price_html": "À partir de {{ price }}",
+        "regular_price": "Prix régulier",
+        "sale_price": "Prix promo"
+      },
+      "vendor": "Marque",
+      "sku": "Référence",
+      "view_details": "Voir le produit",
+      "choose_options": "Choisir les options",
+      "media": {
+        "open_media": "Ouvrir le média {{ index }} en plein écran",
+        "play_video": "Lire la vidéo pour {{ product }}"
+      },
+      "upload": {
+        "heading": "Ajoutez vos souvenirs",
+        "subheading": "Glissez vos photos et vidéos, on s'occupe du reste.",
+        "dropzone_cta": "Glissez vos fichiers ici ou cliquez pour parcourir",
+        "accepted_formats": "Photos et vidéos acceptées",
+        "add_more": "Ajouter d'autres fichiers",
+        "remove_file": "Supprimer ce fichier",
+        "uploading": "Envoi en cours…",
+        "uploaded": "Souvenir ajouté",
+        "error_generic": "Ce fichier n'a pas pu être ajouté. Réessayez.",
+        "error_too_many": "Vous avez atteint le nombre maximum de fichiers.",
+        "error_type": "Format non pris en charge. Utilisez une photo ou une vidéo.",
+        "skip_note": "Vous pourrez aussi nous envoyer vos souvenirs par e-mail après votre commande.",
+        "note_label": "Précisions pour votre commande (facultatif)",
+        "note_placeholder": "Ex. : ordre des photos, message à afficher, date importante…"
+      }
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Votre panier",
+      "empty": "Votre panier est vide",
+      "empty_link": "Découvrir LAMEA",
+      "subtotal": "Sous-total",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes et frais de livraison calculés à l'étape suivante.",
+      "checkout": "Passer commande",
+      "continue_shopping": "Continuer mes achats",
+      "remove": "Retirer",
+      "update": "Mettre à jour",
+      "close_cart": "Fermer le panier",
+      "your_cart": "Votre panier ({{ count }})",
+      "free_shipping_reached": "Livraison gratuite débloquée !",
+      "free_shipping_progress_html": "Plus que {{ amount }} pour la livraison gratuite.",
+      "note": "Ajouter une note pour votre commande"
+    },
+    "item": {
+      "personalization": "Personnalisation",
+      "files_attached": "{{ count }} fichier(s) joint(s)"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "Mon compte",
+      "details": "Informations du compte",
+      "view_addresses": "Voir mes adresses",
+      "return": "Retourner aux informations du compte"
+    },
+    "account_fallback": "Compte",
+    "log_in": "Se connecter",
+    "log_out": "Se déconnecter",
+    "login_page": {
+      "sign_in": "Se connecter",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "forgot_password": "Mot de passe oublié ?",
+      "cancel": "Annuler",
+      "create_account": "Créer un compte",
+      "guest_title": "Continuer en invité",
+      "guest_continue": "Continuer"
+    },
+    "register": {
+      "title": "Créer un compte",
+      "first_name": "Prénom",
+      "last_name": "Nom",
+      "email": "E-mail",
+      "password": "Mot de passe",
+      "submit": "Créer mon compte"
+    },
+    "orders": {
+      "title": "Historique de commandes",
+      "order_number": "Commande",
+      "date": "Date",
+      "payment_status": "Paiement",
+      "fulfillment_status": "Statut",
+      "total": "Total",
+      "none": "Vous n'avez pas encore passé de commande."
+    },
+    "addresses": {
+      "title": "Mes adresses",
+      "add_new": "Ajouter une adresse",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "default": "Adresse par défaut"
+    },
+    "reset_password": {
+      "title": "Réinitialiser le mot de passe",
+      "subtext": "Nous vous enverrons un e-mail pour réinitialiser votre mot de passe.",
+      "submit": "Envoyer"
+    }
+  },
+  "contact": {
+    "form": {
+      "title": "Contact",
+      "name": "Nom",
+      "email": "E-mail",
+      "phone": "Téléphone (facultatif)",
+      "message": "Message",
+      "send": "Envoyer",
+      "post_success": "Merci, votre message a bien été envoyé. Nous vous répondons sous 24 à 48h."
+    }
+  },
+  "collection": {
+    "general": {
+      "empty": "Aucun produit dans cette collection pour le moment.",
+      "items_with_count": {
+        "one": "{{ count }} produit",
+        "other": "{{ count }} produits"
+      },
+      "filter_and_sort": "Filtrer et trier",
+      "sort_by": "Trier par",
+      "clear_all": "Tout effacer"
+    }
+  }
+}

@@ -1,0 +1,249 @@
+<footer class="site-footer" {{ section.shopify_attributes }}>
+  <div class="page-width site-footer__top">
+    <div class="site-footer__brand">
+      {%- if settings.logo -%}
+        <img src="{{ settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" width="140" height="auto" loading="lazy" class="site-footer__logo">
+      {%- else -%}
+        <span class="font-heading site-footer__wordmark">{{ shop.name | default: 'LAMEA' }}</span>
+      {%- endif -%}
+      <p class="site-footer__tagline">{{ section.settings.tagline }}</p>
+      {%- render 'social-icons' -%}
+    </div>
+
+    <div class="site-footer__columns">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'link_list' -%}
+            <div class="site-footer__column" {{ block.shopify_attributes }}>
+              <h3 class="site-footer__heading">{{ block.settings.heading }}</h3>
+              <ul>
+                {%- for link in block.settings.menu.links -%}
+                  <li><a href="{{ link.url }}" class="site-footer__link">{{ link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- when 'text' -%}
+            <div class="site-footer__column" {{ block.shopify_attributes }}>
+              <h3 class="site-footer__heading">{{ block.settings.heading }}</h3>
+              <div class="site-footer__text">{{ block.settings.text }}</div>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+
+      {%- if section.settings.show_newsletter -%}
+        <div class="site-footer__column site-footer__newsletter">
+          <h3 class="site-footer__heading">{{ 'general.newsletter.heading' | t }}</h3>
+          <p class="site-footer__text">{{ section.settings.newsletter_text | default: 'general.newsletter.text' | t }}</p>
+          {%- form 'customer', class: 'newsletter-form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="newsletter-form__row">
+              <label for="NewsletterEmail-{{ section.id }}" class="visually-hidden">{{ 'general.newsletter.email_placeholder' | t }}</label>
+              <input
+                type="email"
+                name="contact[email]"
+                id="NewsletterEmail-{{ section.id }}"
+                placeholder="{{ 'general.newsletter.email_placeholder' | t }}"
+                required
+              >
+              <button type="submit" class="button button--small">{{ 'general.newsletter.submit' | t }}</button>
+            </div>
+            {%- if form.posted_successfully? -%}
+              <p class="newsletter-form__message" role="status">{{ 'general.newsletter.success' | t }}</p>
+            {%- elsif form.errors -%}
+              <p class="newsletter-form__message newsletter-form__message--error" role="alert">{{ 'general.newsletter.error' | t }}</p>
+            {%- endif -%}
+          {%- endform -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="page-width site-footer__bottom">
+    <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}</p>
+    <p>{{ section.settings.bottom_text }}</p>
+  </div>
+</footer>
+
+{% stylesheet %}
+.site-footer {
+  background: var(--color-footer-bg);
+  color: var(--color-footer-text);
+  padding-block: clamp(3rem, 2.5rem + 2vw, 5rem) 1.5rem;
+}
+
+.site-footer__top {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 2fr;
+  gap: clamp(2.5rem, 2rem + 2vw, 5rem);
+  padding-bottom: 3rem;
+}
+
+.site-footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.site-footer__logo {
+  filter: invert(1) grayscale(1) brightness(2);
+}
+
+.site-footer__wordmark {
+  font-size: 1.6rem;
+  letter-spacing: 0.06em;
+}
+
+.site-footer__tagline {
+  opacity: 0.75;
+  max-width: 28ch;
+  font-size: 0.95rem;
+}
+
+.site-footer .social-icons .icon-link {
+  border: 1px solid rgba(250, 247, 242, 0.25);
+}
+
+.site-footer__columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+}
+
+.site-footer__heading {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+  opacity: 0.6;
+  font-family: var(--font-body-family);
+}
+
+.site-footer__column ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.site-footer__link {
+  opacity: 0.85;
+  font-size: 0.92rem;
+}
+
+.theme-hover-enabled .site-footer__link:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.site-footer__text {
+  opacity: 0.85;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.newsletter-form__row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.newsletter-form__row input {
+  flex: 1;
+  min-width: 0;
+  border-radius: var(--radius-input);
+  border: 1px solid rgba(250, 247, 242, 0.3);
+  background: transparent;
+  color: var(--color-footer-text);
+  padding: 0.75em 1em;
+}
+
+.newsletter-form__row input::placeholder {
+  color: rgba(250, 247, 242, 0.55);
+}
+
+.newsletter-form__message {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+}
+
+.newsletter-form__message--error {
+  color: #e2a5a5;
+}
+
+.site-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(250, 247, 242, 0.15);
+  font-size: 0.78rem;
+  opacity: 0.65;
+}
+
+@media screen and (max-width: 749px) {
+  .site-footer__top {
+    grid-template-columns: 1fr;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Signature",
+      "default": "Désormais, votre amour prend vie."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Afficher l'inscription newsletter",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "newsletter_text",
+      "label": "Texte newsletter"
+    },
+    {
+      "type": "text",
+      "id": "bottom_text",
+      "label": "Texte de bas de page",
+      "default": "Fabriqué avec soin pour vos souvenirs."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Liste de liens",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Titre", "default": "Assistance" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Bloc texte",
+      "settings": [
+        { "type": "text", "id": "heading", "label": "Titre", "default": "Contact" },
+        { "type": "richtext", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      {
+        "type": "link_list",
+        "settings": { "heading": "Assistance" }
+      },
+      {
+        "type": "link_list",
+        "settings": { "heading": "Légal" }
+      }
+    ]
+  }
+}
+{% endschema %}

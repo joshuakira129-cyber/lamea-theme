@@ -1,0 +1,112 @@
+<section class="ugc section-padding" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="section-intro" data-reveal="fade">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-heading font-heading">{{ section.settings.heading }}</h2>
+    </div>
+  </div>
+
+  <div class="ugc__slider-wrap page-width" data-slider-wrap>
+    <ul class="ugc__slider" data-slider tabindex="0" aria-label="{{ section.settings.heading }}">
+      {%- for block in section.blocks -%}
+        <li class="ugc__slide" {{ block.shopify_attributes }}>
+          <div class="aspect-ratio ugc__media">
+            {%- if block.settings.video != blank -%}
+              {{ block.settings.video | video_tag: controls: true, loop: false, muted: false, image_size: '600x' }}
+            {%- elsif block.settings.image -%}
+              <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.image.alt | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy">
+            {%- else -%}
+              <span class="placeholder-media">LAMEA_UGC_{{ forloop.index }}_PLACEHOLDER</span>
+            {%- endif -%}
+          </div>
+          {%- if block.settings.caption != blank -%}
+            <p class="ugc__caption">{{ block.settings.caption }}</p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+
+    <div class="slider-controls hide-mobile">
+      <button type="button" class="icon-link slider-control" data-slider-prev aria-label="{{ 'general.accessibility.previous_slide' | t }}">{% render 'icon', icon: 'chevron-left' %}</button>
+      <button type="button" class="icon-link slider-control" data-slider-next aria-label="{{ 'general.accessibility.next_slide' | t }}">{% render 'icon', icon: 'chevron-right' %}</button>
+    </div>
+  </div>
+</section>
+
+<script src="{{ 'slider.js' | asset_url }}" defer="defer"></script>
+
+{% stylesheet %}
+.ugc__slider-wrap {
+  position: relative;
+}
+
+.ugc__slider {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+}
+
+.ugc__slider::-webkit-scrollbar {
+  display: none;
+}
+
+.ugc__slide {
+  flex: 0 0 auto;
+  width: min(72vw, 280px);
+  scroll-snap-align: start;
+}
+
+.ugc__media {
+  aspect-ratio: 9/16;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-background-alt);
+}
+
+.ugc__media video,
+.ugc__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ugc__caption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Vidéos & UGC",
+  "max_blocks": 10,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Ils ont créé leur LAMEA" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Des souvenirs, en vrai" }
+  ],
+  "blocks": [
+    {
+      "type": "media",
+      "name": "Média",
+      "settings": [
+        { "type": "video", "id": "video", "label": "Vidéo (hébergée Shopify)" },
+        { "type": "image_picker", "id": "image", "label": "Image (si pas de vidéo)" },
+        { "type": "text", "id": "caption", "label": "Légende" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "media", "settings": {} },
+      { "type": "media", "settings": {} },
+      { "type": "media", "settings": {} }
+    ]
+  },
+  "presets": [{ "name": "Vidéos & UGC" }]
+}
+{% endschema %}

@@ -1,0 +1,62 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" data-animations="{% if settings.enable_animations %}on{% else %}off{% endif %}" data-animation-intensity="{{ settings.animation_intensity }}" data-parallax="{% if settings.enable_parallax %}on{% else %}off{% endif %}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+    <meta name="theme-color" content="{{ settings.color_background }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+    {% if settings.favicon %}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 96 }}">
+    {% endif %}
+
+    {%- render 'meta-tags' -%}
+    {%- render 'structured-data' -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; {{ 'general.meta.tags' | t: tags: current_tags | join: ', ' }}{% endif -%}
+      {%- if current_page != 1 %} &ndash; {{ 'general.meta.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% elsif settings.seo_default_description %}
+      <meta name="description" content="{{ settings.seo_default_description | escape }}">
+    {% endif %}
+
+    {{ content_for_header }}
+
+    {%- style -%}
+      {%- render 'css-variables' -%}
+    {%- endstyle -%}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'animations.css' | asset_url | stylesheet_tag }}
+
+    {%- render 'font-face', font: settings.font_heading, css_variable: '--font-heading-family' -%}
+    {%- render 'font-face', font: settings.font_body, css_variable: '--font-body-family' -%}
+
+    <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+  </head>
+
+  <body class="theme-body{% if settings.enable_hover_effects %} theme-hover-enabled{% endif %}">
+    <a class="skip-to-content-link button visually-hidden" href="#MainContent">
+      {{ 'general.accessibility.skip_to_content' | t }}
+    </a>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="content-for-layout" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {% section 'cart-drawer' %}
+
+    <div id="lamea-a11y-refresh" class="visually-hidden" role="status" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>

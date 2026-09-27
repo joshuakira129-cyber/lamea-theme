@@ -1,0 +1,42 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product"
+    },
+    "benefits": {
+      "type": "product-benefits"
+    },
+    "story": {
+      "type": "product-story"
+    },
+    "how-it-works": {
+      "type": "how-it-works"
+    },
+    "comparison": {
+      "type": "comparison-table"
+    },
+    "testimonials": {
+      "type": "testimonials"
+    },
+    "faq": {
+      "type": "faq"
+    },
+    "related": {
+      "type": "related-products"
+    },
+    "final-cta": {
+      "type": "final-cta"
+    }
+  },
+  "order": [
+    "main",
+    "benefits",
+    "story",
+    "how-it-works",
+    "comparison",
+    "testimonials",
+    "faq",
+    "related",
+    "final-cta"
+  ]
+}

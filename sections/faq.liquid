@@ -1,0 +1,68 @@
+<section class="faq section-padding" {{ section.shopify_attributes }}>
+  <div class="page-width faq__layout">
+    <div class="section-intro" data-reveal="fade">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-heading font-heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="section-text">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+
+    <div class="faq__list" data-accordion data-reveal="fade">
+      {%- for block in section.blocks -%}
+        <div class="accordion-item" data-accordion-item {{ block.shopify_attributes }}>
+          <button type="button" class="accordion-trigger" data-accordion-trigger aria-expanded="false">
+            <span>{{ block.settings.question }}</span>
+            {% render 'icon', icon: 'plus', class: 'icon accordion-icon' %}
+          </button>
+          <div class="accordion-panel" data-accordion-panel>
+            <div class="accordion-answer">{{ block.settings.answer }}</div>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.faq__layout {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: clamp(2rem, 1.5rem + 2vw, 4rem);
+}
+
+@media screen and (max-width: 749px) {
+  .faq__layout {
+    grid-template-columns: 1fr;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "max_blocks": 12,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Questions fréquentes" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Tout ce qu'il faut savoir" },
+    { "type": "textarea", "id": "text", "label": "Texte" }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Comment ajouter mes photos et vidéos ?" },
+        { "type": "richtext", "id": "answer", "label": "Réponse", "default": "<p>Depuis la fiche produit, glissez vos fichiers dans l'espace prévu. Vous pouvez aussi nous les envoyer après votre commande.</p>" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "question", "settings": {} },
+      { "type": "question", "settings": { "question": "Quels formats de fichiers sont acceptés ?", "answer": "<p>Les formats photo et vidéo les plus courants sont acceptés. Le détail exact est précisé sur la fiche produit.</p>" } },
+      { "type": "question", "settings": { "question": "Quel est le délai de livraison ?", "answer": "<p>Les délais de préparation et de livraison sont indiqués sur la fiche produit et la page Livraison.</p>" } },
+      { "type": "question", "settings": { "question": "Puis-je modifier les souvenirs après l'achat ?", "answer": "<p>Cela dépend du modèle choisi. Consultez la fiche produit pour les détails de connectique et de mise à jour.</p>" } }
+    ]
+  },
+  "presets": [{ "name": "FAQ" }]
+}
+{% endschema %}

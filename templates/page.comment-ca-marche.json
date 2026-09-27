@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "how-it-works": {
+      "type": "how-it-works",
+      "settings": {
+        "eyebrow": "Le fonctionnement",
+        "heading": "Comment ça marche ?"
+      }
+    },
+    "showcase": {
+      "type": "product-showcase"
+    },
+    "upload-explainer": {
+      "type": "media-with-text",
+      "settings": {
+        "eyebrow": "Vos souvenirs",
+        "heading": "Ajoutez vos photos et vidéos en toute simplicité",
+        "text": "<p>Depuis la fiche produit, glissez vos fichiers directement dans l'espace de personnalisation. Vous pouvez aussi nous les envoyer après votre commande si vous préférez prendre votre temps.</p>",
+        "image_position": "right"
+      }
+    },
+    "faq": {
+      "type": "faq"
+    },
+    "final-cta": {
+      "type": "final-cta"
+    }
+  },
+  "order": ["how-it-works", "showcase", "upload-explainer", "faq", "final-cta"]
+}

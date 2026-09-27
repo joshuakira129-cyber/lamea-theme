@@ -1,0 +1,38 @@
+<section class="account-page page-width section-padding">
+  <div class="account-card" data-reveal="fade">
+    <h1 class="account-card__title font-heading">Activer mon compte</h1>
+    <p class="text-muted" style="text-align:center;">Créez votre mot de passe pour activer votre compte.</p>
+
+    {%- form 'activate_customer_password' -%}
+      {%- if form.errors -%}
+        <ul class="account-card__errors" role="alert">
+          {%- for field in form.errors -%}
+            <li>{{ form.errors.messages[field] }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="field">
+        <label for="ActivatePassword">{{ 'customer.register.password' | t }}</label>
+        <input type="password" name="customer[password]" id="ActivatePassword" autocomplete="new-password" required>
+      </div>
+      <div class="field">
+        <label for="ActivatePasswordConfirmation">Confirmer le mot de passe</label>
+        <input type="password" name="customer[password_confirmation]" id="ActivatePasswordConfirmation" autocomplete="new-password" required>
+      </div>
+
+      <div class="account-card__row">
+        <button type="submit" class="button button--accent button--full">Activer le compte</button>
+        <button type="submit" name="decline" class="button button--secondary button--full">Refuser l'invitation</button>
+      </div>
+    {%- endform -%}
+  </div>
+</section>
+
+{% style %}
+.account-page { display: flex; justify-content: center; }
+.account-card { width: 100%; max-width: 26rem; display: flex; flex-direction: column; gap: 1.1rem; }
+.account-card__title { font-size: 1.9rem; text-align: center; margin-bottom: 0.5rem; }
+.account-card__errors { color: #b23b3b; font-size: 0.85rem; }
+.account-card__row { display: flex; flex-direction: column; gap: 0.75rem; }
+{% endstyle %}

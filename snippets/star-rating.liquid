@@ -1,0 +1,24 @@
+{%- comment -%}
+  Accepts: product
+  Reads the metafield convention used by Shopify's official "Product
+  reviews" app (metafields.reviews.rating / rating_count). If you connect
+  a different reviews app (Judge.me, Loox, Okendo...), update the
+  metafield references below to match — see README.md "Avis clients".
+  Renders nothing if no rating data is present, so it never fakes reviews.
+{%- endcomment -%}
+{%- liquid
+  assign rating = product.metafields.reviews.rating.value
+  assign rating_count = product.metafields.reviews.rating_count.value
+-%}
+{%- if settings.show_product_reviews and rating -%}
+  <div class="star-rating" aria-label="{{ rating.value }} sur 5">
+    <div class="star-rating__stars" style="--rating: {{ rating.value }};">
+      {%- for i in (1..5) -%}
+        {% render 'icon', icon: 'star', class: 'icon star-rating__star' %}
+      {%- endfor -%}
+    </div>
+    {%- if rating_count -%}
+      <span class="star-rating__count text-muted">({{ rating_count }})</span>
+    {%- endif -%}
+  </div>
+{%- endif -%}

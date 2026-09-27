@@ -1,0 +1,54 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-lamea"
+    },
+    "trust-bar": {
+      "type": "trust-bar"
+    },
+    "showcase": {
+      "type": "product-showcase"
+    },
+    "compare": {
+      "type": "comparison-section"
+    },
+    "how-it-works": {
+      "type": "how-it-works"
+    },
+    "story": {
+      "type": "story-section"
+    },
+    "ugc": {
+      "type": "ugc-slider"
+    },
+    "testimonials": {
+      "type": "testimonials"
+    },
+    "occasions": {
+      "type": "occasions-grid"
+    },
+    "faq": {
+      "type": "faq"
+    },
+    "final-cta": {
+      "type": "final-cta",
+      "settings": {
+        "heading": "Offrez un souvenir qui prend vie",
+        "cta_label": "Créer mon LAMEA"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "trust-bar",
+    "showcase",
+    "compare",
+    "how-it-works",
+    "story",
+    "ugc",
+    "testimonials",
+    "occasions",
+    "faq",
+    "final-cta"
+  ]
+}

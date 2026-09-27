@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "faq": {
+      "type": "faq",
+      "settings": {
+        "eyebrow": "Besoin d'aide ?",
+        "heading": "Questions fréquentes"
+      }
+    },
+    "final-cta": {
+      "type": "final-cta"
+    }
+  },
+  "order": ["faq", "final-cta"]
+}

@@ -1,0 +1,39 @@
+{% comment %}
+  Renders the :root custom properties driven by Theme Settings.
+  Kept in its own snippet so it can be reused by theme-editor previews.
+{% endcomment %}
+:root {
+  --color-background: {{ settings.color_background }};
+  --color-background-alt: {{ settings.color_background_alt }};
+  --color-text: {{ settings.color_text }};
+  --color-text-muted: {{ settings.color_text_muted }};
+  --color-accent: {{ settings.color_accent }};
+  --color-accent-text: {{ settings.color_accent_text }};
+  --color-button-primary-bg: {{ settings.color_button_primary_bg }};
+  --color-button-primary-text: {{ settings.color_button_primary_text }};
+  --color-border: {{ settings.color_border }};
+  --color-header-bg: {{ settings.color_header_bg }};
+  --color-footer-bg: {{ settings.color_footer_bg }};
+  --color-footer-text: {{ settings.color_footer_text }};
+
+  --page-width: {{ settings.page_width }}px;
+  --spacing-section: {{ settings.spacing_sections }}px;
+  --grid-gutter: {{ settings.grid_gutter }}px;
+
+  --radius-button: {{ settings.button_radius }}px;
+  --radius-input: {{ settings.input_radius }}px;
+
+  --font-body-size: {{ settings.body_scale | default: 100 | divided_by: 100.0 }}rem;
+  --heading-scale: {{ settings.heading_scale | default: 100 | divided_by: 100.0 }};
+}
+
+@media screen and (max-width: 749px) {
+  :root {
+    --spacing-section: {{ settings.spacing_sections | times: 0.6 | round }}px;
+  }
+}
+
+h1, .h1 { font-size: calc(clamp(2.4rem, 1.9rem + 2.4vw, 4.2rem) * var(--heading-scale)); }
+h2, .h2 { font-size: calc(clamp(1.9rem, 1.5rem + 1.8vw, 3rem) * var(--heading-scale)); }
+h3, .h3 { font-size: calc(clamp(1.5rem, 1.25rem + 1.2vw, 2.1rem) * var(--heading-scale)); }
+h4, .h4 { font-size: calc(clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem) * var(--heading-scale)); }

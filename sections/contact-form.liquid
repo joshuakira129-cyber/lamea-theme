@@ -1,0 +1,99 @@
+<section class="contact page-width section-padding" {{ section.shopify_attributes }}>
+  <div class="contact__layout">
+    <div class="contact__intro" data-reveal="fade">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="contact__title font-heading">{{ section.settings.heading }}</h1>
+      {%- if section.settings.text != blank -%}<div class="contact__text">{{ section.settings.text }}</div>{%- endif -%}
+    </div>
+
+    {%- form 'contact', id: 'ContactForm', class: 'contact__form', data-reveal: 'fade' -%}
+      {%- if form.posted_successfully? -%}
+        <p class="contact__success" role="status">{{ 'contact.form.post_success' | t }}</p>
+      {%- endif -%}
+
+      {%- if form.errors -%}
+        <ul class="contact__errors" role="alert">
+          {%- for field in form.errors -%}
+            <li>{{ form.errors.messages[field] }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="field">
+        <label for="ContactName">{{ 'contact.form.name' | t }}</label>
+        <input type="text" id="ContactName" name="contact[name]" value="{{ form.name }}" required>
+      </div>
+
+      <div class="field">
+        <label for="ContactEmail">{{ 'contact.form.email' | t }}</label>
+        <input type="email" id="ContactEmail" name="contact[email]" value="{{ form.email }}" required>
+      </div>
+
+      <div class="field">
+        <label for="ContactPhone">{{ 'contact.form.phone' | t }}</label>
+        <input type="tel" id="ContactPhone" name="contact[phone]" value="{{ form.phone }}">
+      </div>
+
+      <div class="field">
+        <label for="ContactMessage">{{ 'contact.form.message' | t }}</label>
+        <textarea id="ContactMessage" name="contact[body]" rows="5" required>{{ form.body }}</textarea>
+      </div>
+
+      <button type="submit" class="button button--accent">{{ 'contact.form.send' | t }}</button>
+    {%- endform -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.contact__layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: clamp(2rem, 1.5rem + 2vw, 4rem);
+}
+
+.contact__title {
+  font-size: clamp(2rem, 1.7rem + 1.4vw, 2.9rem);
+  margin-bottom: 1rem;
+}
+
+.contact__text {
+  color: var(--color-text-muted);
+  max-width: 34ch;
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  max-width: 32rem;
+}
+
+.contact__success {
+  background: var(--color-background-alt);
+  padding: 1rem 1.25rem;
+  border-radius: 10px;
+}
+
+.contact__errors {
+  color: #b23b3b;
+  font-size: 0.85rem;
+}
+
+@media screen and (max-width: 749px) {
+  .contact__layout {
+    grid-template-columns: 1fr;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Formulaire de contact",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Une question ?" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Contactez-nous" },
+    { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Notre équipe vous répond sous 24 à 48h.</p>" }
+  ],
+  "presets": [{ "name": "Formulaire de contact" }]
+}
+{% endschema %}

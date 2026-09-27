@@ -1,0 +1,239 @@
+<section class="hero" {{ section.shopify_attributes }}>
+  <div class="hero__media" data-parallax-speed="0.08">
+    {%- if section.settings.media_type == 'video' and section.settings.video != blank -%}
+      <div class="aspect-ratio hero__media-inner">
+        {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, image_size: '1600x' }}
+      </div>
+    {%- elsif section.settings.image -%}
+      <div class="aspect-ratio hero__media-inner">
+        <img
+          src="{{ section.settings.image | image_url: width: 1600 }}"
+          srcset="{{ section.settings.image | image_url: width: 800 }} 800w, {{ section.settings.image | image_url: width: 1200 }} 1200w, {{ section.settings.image | image_url: width: 1600 }} 1600w, {{ section.settings.image | image_url: width: 2000 }} 2000w"
+          sizes="100vw"
+          alt="{{ section.settings.image.alt | default: 'LAMEA — cadre à souvenirs' | escape }}"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          loading="eager"
+          fetchpriority="high"
+        >
+      </div>
+    {%- else -%}
+      <div class="aspect-ratio hero__media-inner">
+        <span class="placeholder-media">LAMEA_HERO_PLACEHOLDER — 1600x2000px recommandé</span>
+      </div>
+    {%- endif -%}
+    <div class="hero__scrim" aria-hidden="true"></div>
+  </div>
+
+  <div class="page-width hero__content">
+    <p class="eyebrow hero__eyebrow" data-reveal="fade">{{ section.settings.eyebrow }}</p>
+    <h1 class="hero__title font-heading" data-reveal="fade" style="--reveal-delay: 90ms;">{{ section.settings.heading }}</h1>
+    <p class="hero__text" data-reveal="fade" style="--reveal-delay: 180ms;">{{ section.settings.text }}</p>
+    <div class="hero__actions" data-reveal="fade" style="--reveal-delay: 270ms;">
+      {%- if section.settings.primary_link != blank -%}
+        <a href="{{ section.settings.primary_link }}" class="button button--accent">
+          <span>{{ section.settings.primary_label }}</span>
+        </a>
+      {%- endif -%}
+      {%- if section.settings.secondary_link != blank -%}
+        <a href="{{ section.settings.secondary_link }}" class="button button--outline-light">
+          <span>{{ section.settings.secondary_label }}</span>
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <a href="#hero-next" class="hero__scroll-hint hide-mobile" aria-hidden="true">
+    <span></span>
+  </a>
+</section>
+
+{% stylesheet %}
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+  color: #fff;
+}
+
+.hero__media,
+.hero__media-inner {
+  position: absolute;
+  inset: 0;
+  height: 108%;
+  top: -4%;
+}
+
+.hero__media-inner img,
+.hero__media-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 17, 15, 0.15) 0%, rgba(20, 17, 15, 0.05) 35%, rgba(20, 17, 15, 0.75) 100%);
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding-bottom: clamp(3rem, 2.4rem + 3vw, 5.5rem);
+  padding-top: 8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 46rem;
+}
+
+.hero__eyebrow {
+  color: #f3e8e0;
+}
+
+.hero__title {
+  font-size: clamp(2.6rem, 2.1rem + 2.8vw, 4.6rem);
+  line-height: 1.05;
+}
+
+.hero__text {
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.2rem);
+  max-width: 42ch;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.75rem;
+}
+
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 3.2rem;
+  z-index: 2;
+}
+
+.hero__scroll-hint span {
+  display: block;
+  width: 1px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.55);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero__scroll-hint span::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  animation: lamea-scroll-hint 2.2s ease-in-out infinite;
+}
+
+@keyframes lamea-scroll-hint {
+  0% { top: -100%; }
+  60% { top: 100%; }
+  100% { top: 100%; }
+}
+
+html[data-animations="off"] .hero__scroll-hint span::after {
+  animation: none;
+  top: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .hero {
+    min-height: 100vh;
+    align-items: flex-end;
+  }
+  .hero__content {
+    padding-top: 6rem;
+    padding-bottom: 2.75rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Hero LAMEA",
+  "settings": [
+    {
+      "type": "select",
+      "id": "media_type",
+      "label": "Type de média",
+      "options": [
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Vidéo" }
+      ],
+      "default": "image"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (remplace LAMEA_HERO_PLACEHOLDER)"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Vidéo (hébergée Shopify)"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Vos souvenirs méritent mieux qu'une galerie photo"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "default": "Désormais, votre amour prend vie"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texte",
+      "default": "LAMEA transforme vos photos et vos vidéos les plus précieuses en un cadeau que l'on peut vraiment revivre."
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "CTA principal — texte",
+      "default": "Créer mon LAMEA"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "CTA principal — lien"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "CTA secondaire — texte",
+      "default": "Découvrir comment ça marche"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "CTA secondaire — lien"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero LAMEA"
+    }
+  ]
+}
+{% endschema %}

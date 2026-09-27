@@ -1,0 +1,113 @@
+<section class="how-it-works section-padding" id="how-it-works" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="section-intro section-intro--center" data-reveal="fade">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-heading section-heading--center font-heading">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="how-it-works__grid" data-reveal-group>
+      {%- for block in section.blocks -%}
+        <div class="how-it-works__step" data-reveal="fade" {{ block.shopify_attributes }}>
+          <div class="aspect-ratio how-it-works__media hover-zoom">
+            {%- if block.settings.image -%}
+              <img src="{{ block.settings.image | image_url: width: 700 }}" alt="{{ block.settings.image.alt | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy">
+            {%- else -%}
+              <span class="placeholder-media">LAMEA_STEP_{{ forloop.index }}_PLACEHOLDER</span>
+            {%- endif -%}
+          </div>
+          <span class="how-it-works__number font-heading">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>
+          <h3 class="how-it-works__title">{{ block.settings.title }}</h3>
+          <p class="how-it-works__text text-muted">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank and section.settings.cta_link != blank -%}
+      <div class="how-it-works__cta" data-reveal="fade">
+        <a href="{{ section.settings.cta_link }}" class="button button--accent"><span>{{ section.settings.cta_label }}</span></a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+.how-it-works__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+}
+
+.how-it-works__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.how-it-works__media {
+  aspect-ratio: 4/5;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--color-background-alt);
+}
+
+.how-it-works__number {
+  font-size: 1.1rem;
+  color: var(--color-accent);
+  letter-spacing: 0.05em;
+}
+
+.how-it-works__title {
+  font-size: 1.2rem;
+}
+
+.how-it-works__text {
+  font-size: 0.92rem;
+  max-width: 32ch;
+}
+
+.how-it-works__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2rem, 1.6rem + 1.5vw, 3rem);
+}
+
+@media screen and (max-width: 749px) {
+  .how-it-works__grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Comment ça marche",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Simple comme un souvenir" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Comment ça marche ?" },
+    { "type": "text", "id": "cta_label", "label": "CTA — texte", "default": "Créer mon LAMEA" },
+    { "type": "url", "id": "cta_link", "label": "CTA — lien" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Choisissez votre LAMEA" },
+        { "type": "textarea", "id": "text", "label": "Texte", "default": "Sélectionnez la taille et la finition qui correspondent à votre souvenir." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "step", "settings": { "title": "Choisissez votre LAMEA", "text": "Sélectionnez la taille et la finition qui vous correspondent." } },
+      { "type": "step", "settings": { "title": "Ajoutez vos souvenirs", "text": "Glissez vos photos et vidéos préférées, sans limite de créativité." } },
+      { "type": "step", "settings": { "title": "Offrez-le", "text": "Recevez votre cadre prêt à offrir, déjà rempli de vos souvenirs." } }
+    ]
+  },
+  "presets": [{ "name": "Comment ça marche" }]
+}
+{% endschema %}

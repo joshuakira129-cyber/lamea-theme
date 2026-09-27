@@ -1,0 +1,48 @@
+{%- comment -%}
+  Accepts: product
+  Progressive enhancement: a native <select name="id"> always works, even
+  without JavaScript. When JS runs, product-form.js hides it and renders
+  the pill/swatch UI below, keeping both in sync.
+{%- endcomment -%}
+<div class="variant-picker" data-variant-picker>
+  <script type="application/json" data-product-json>
+    {{ product.variants | json }}
+  </script>
+
+  <div class="field variant-picker__native">
+    <label for="ProductSelect-{{ product.id }}">{{ 'products.product.choose_options' | t }}</label>
+    <select name="id" id="ProductSelect-{{ product.id }}" data-native-variant-select>
+      {%- for variant in product.variants -%}
+        <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} {% unless variant.available %}disabled="disabled"{% endunless %}>
+          {{ variant.title }}{% unless variant.available %} — {{ 'products.product.sold_out' | t }}{% endunless %}
+        </option>
+      {%- endfor -%}
+    </select>
+  </div>
+
+  {%- if product.options_with_values.size > 0 and product.has_only_default_variant == false -%}
+    <div class="variant-picker__options" data-variant-picker-enhanced>
+      {%- for option in product.options_with_values -%}
+        <fieldset class="variant-option" data-option-index="{{ forloop.index0 }}">
+          <legend class="variant-option__label">
+            {{ option.name }}
+            <span class="variant-option__value" data-selected-value>{{ option.selected_value }}</span>
+          </legend>
+          <div class="variant-option__list">
+            {%- for value in option.values -%}
+              <button
+                type="button"
+                class="variant-pill{% if value == option.selected_value %} is-selected{% endif %}"
+                data-variant-pill
+                data-option-index="{{ forloop.parentloop.index0 }}"
+                data-value="{{ value | escape }}"
+              >
+                {{ value }}
+              </button>
+            {%- endfor -%}
+          </div>
+        </fieldset>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>

@@ -1,0 +1,11 @@
+{% comment %}
+  Renders @font-face declarations for a font_picker setting and exposes
+  it as a CSS variable.
+  Usage: {% render 'font-face', font: settings.font_heading, css_variable: '--font-heading-family' %}
+{% endcomment %}
+{%- style -%}
+  {{ font | font_face: font_display: 'swap' }}
+  :root {
+    {{ css_variable }}: {{ font.family }}, {{ font.fallback_families }};
+  }
+{%- endstyle -%}

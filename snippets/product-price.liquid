@@ -1,0 +1,14 @@
+{%- comment -%}
+  Accepts: variant (current selected/first available variant), show_compare (bool)
+  Styles live in assets/component-product.css
+{%- endcomment -%}
+<div class="product-price" data-product-price>
+  {%- if show_compare and variant.compare_at_price > variant.price -%}
+    <span class="product-price__compare" data-compare-price>{{ variant.compare_at_price | money }}</span>
+    <span class="product-price__current product-price__current--sale" data-current-price>{{ variant.price | money }}</span>
+    {%- assign discount = variant.compare_at_price | minus: variant.price | times: 100.0 | divided_by: variant.compare_at_price | round -%}
+    <span class="badge badge--accent product-price__badge">-{{ discount }}%</span>
+  {%- else -%}
+    <span class="product-price__current" data-current-price>{{ variant.price | money }}</span>
+  {%- endif -%}
+</div>

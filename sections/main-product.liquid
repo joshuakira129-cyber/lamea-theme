@@ -1,0 +1,172 @@
+{{ 'component-product.css' | asset_url | stylesheet_tag }}
+
+<section class="product-page page-width" data-product-section {{ section.shopify_attributes }}>
+  <div class="product-page__grid">
+    {%- render 'product-media-gallery', product: product -%}
+
+    <div class="product-buybox{% if settings.enable_sticky_buy_box_desktop %} product-buybox--sticky{% endif %}" data-buybox>
+      <h1 class="product-buybox__title font-heading">{{ product.title }}</h1>
+
+      {%- if section.settings.tagline != blank -%}
+        <p class="product-buybox__tagline">{{ section.settings.tagline }}</p>
+      {%- endif -%}
+
+      {%- render 'star-rating', product: product -%}
+
+      {%- render 'product-price', variant: product.selected_or_first_available_variant, show_compare: settings.show_compare_at_price -%}
+
+      {%- form 'product', product, id: 'ProductForm', class: 'product-form', data-product-form: '' -%}
+        <input type="hidden" name="quantity" value="1" data-quantity-value>
+
+        {%- render 'product-variant-picker', product: product -%}
+
+        {%- render 'product-upload', product: product -%}
+
+        <div class="product-form__row">
+          <quantity-input class="quantity-input">
+            <button type="button" name="minus" aria-label="{{ 'products.product.quantity.decrease' | t }}">{% render 'icon', icon: 'minus' %}</button>
+            <input type="number" data-quantity-input value="1" min="1" aria-label="{{ 'products.product.quantity.label' | t }}">
+            <button type="button" name="plus" aria-label="{{ 'products.product.quantity.increase' | t }}">{% render 'icon', icon: 'plus' %}</button>
+          </quantity-input>
+
+          <button
+            type="submit"
+            name="add"
+            class="button button--accent button--full product-form__submit"
+            data-add-to-cart
+            {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
+          >
+            <span class="spinner" aria-hidden="true"></span>
+            <span class="product-form__submit-label">
+              {%- if product.selected_or_first_available_variant.available -%}
+                {{ 'products.product.buy_now' | t }}
+              {%- else -%}
+                {{ 'products.product.sold_out' | t }}
+              {%- endif -%}
+            </span>
+          </button>
+        </div>
+      {%- endform -%}
+
+      <div class="product-form__payment-note">
+        {% render 'icon', icon: 'shield' %}
+        <span>{{ settings.payment_badges_text }}</span>
+      </div>
+      {%- if shop.enabled_payment_types.size > 0 -%}
+        <div class="product-form__payment-icons">
+          {%- for type in shop.enabled_payment_types -%}
+            {{ type | payment_type_svg_tag: class: 'payment-icon' }}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="product-reassurance">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'reassurance' -%}
+              <div class="product-reassurance__item" {{ block.shopify_attributes }}>
+                {% render 'icon', icon: block.settings.icon %}
+                <span>{{ block.settings.text }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      {%- if section.blocks.size > 0 -%}
+        <div class="product-accordion" data-accordion>
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'accordion' -%}
+              <div class="accordion-item" data-accordion-item {{ block.shopify_attributes }}>
+                <button type="button" class="accordion-trigger" data-accordion-trigger aria-expanded="false">
+                  <span>{{ block.settings.title }}</span>
+                  {% render 'icon', icon: 'plus', class: 'icon accordion-icon' %}
+                </button>
+                <div class="accordion-panel" data-accordion-panel>
+                  <div class="accordion-answer">{{ block.settings.content }}</div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- if settings.enable_sticky_cart_mobile -%}
+  <div class="sticky-add-to-cart hide-desktop" data-sticky-cart>
+    <div class="sticky-add-to-cart__info">
+      <span class="sticky-add-to-cart__title">{{ product.title }}</span>
+      <span class="sticky-add-to-cart__price" data-sticky-cart-price>{{ product.selected_or_first_available_variant.price | money }}</span>
+    </div>
+    <button type="button" class="button button--accent sticky-add-to-cart__cta" data-sticky-cart-submit {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+      {%- if product.selected_or_first_available_variant.available -%}
+        {{ 'products.product.buy_now' | t }}
+      {%- else -%}
+        {{ 'products.product.sold_out' | t }}
+      {%- endif -%}
+    </button>
+  </div>
+{%- endif -%}
+
+<script>
+  window.themeMoneyFormat = {{ shop.money_format | json }};
+  window.themeStrings = window.themeStrings || {};
+  window.themeStrings.soldOut = {{ 'products.product.sold_out' | t | json }};
+</script>
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'media-upload.js' | asset_url }}" defer="defer"></script>
+
+{% schema %}
+{
+  "name": "Page produit",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Phrase émotionnelle",
+      "default": "Le cadeau qu'on ne range pas dans un tiroir."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "reassurance",
+      "name": "Réassurance",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "truck", "label": "Livraison" },
+            { "value": "shield", "label": "Sécurité" },
+            { "value": "refresh", "label": "Retour" },
+            { "value": "gift", "label": "Cadeau" }
+          ],
+          "default": "truck"
+        },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Livraison sous 3 à 7 jours" }
+      ]
+    },
+    {
+      "type": "accordion",
+      "name": "Accordéon",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Livraison & retours" },
+        { "type": "richtext", "id": "content", "label": "Contenu", "default": "<p>Détaillez ici les informations de livraison et de retour.</p>" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "reassurance", "settings": { "icon": "truck", "text": "Livraison sous 3 à 7 jours" } },
+      { "type": "reassurance", "settings": { "icon": "shield", "text": "Paiement 100% sécurisé" } },
+      { "type": "reassurance", "settings": { "icon": "refresh", "text": "Satisfait ou remboursé sous 30 jours" } },
+      { "type": "accordion", "settings": { "title": "Livraison & retours" } },
+      { "type": "accordion", "settings": { "title": "Caractéristiques techniques", "content": "<p>Renseignez ici les dimensions, le matériau et la connectique confirmés pour votre produit.</p>" } },
+      { "type": "accordion", "settings": { "title": "Entretien", "content": "<p>Conseils d'entretien du cadre.</p>" } }
+    ]
+  }
+}
+{% endschema %}

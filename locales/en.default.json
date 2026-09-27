@@ -1,0 +1,184 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "accessibility": {
+      "skip_to_content": "Skip to content",
+      "close": "Close",
+      "next_slide": "Next slide",
+      "previous_slide": "Previous slide",
+      "play_video": "Play video",
+      "total_reviews": "Total reviews"
+    },
+    "search": {
+      "title": "Search",
+      "placeholder": "Search for a frame, help…",
+      "submit": "Search",
+      "no_results_html": "No results for \"{{ terms }}\".",
+      "results_for_html": "Results for \"{{ terms }}\""
+    },
+    "newsletter": {
+      "heading": "Stay inspired",
+      "text": "Gift ideas, new releases and offers, straight to your inbox.",
+      "email_placeholder": "Your email address",
+      "submit": "Subscribe",
+      "success": "Thanks, you're subscribed.",
+      "error": "Something went wrong, please try again."
+    },
+    "social": {
+      "follow_us": "Follow us"
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "This memory seems to have gotten lost. The page you're looking for no longer exists.",
+      "link": "Back to homepage"
+    },
+    "password_page": {
+      "opening_soon": "Opening soon",
+      "login_form_heading": "Enter using password",
+      "login_password_button": "Enter",
+      "signup_form_heading": "Get notified when we launch",
+      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"link\">Log in here</a>"
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to cart",
+      "buy_now": "Create my LAMEA",
+      "sold_out": "Sold out",
+      "unavailable": "Unavailable",
+      "on_sale": "Sale",
+      "quantity": {
+        "label": "Quantity",
+        "decrease": "Decrease quantity",
+        "increase": "Increase quantity"
+      },
+      "price": {
+        "from_price_html": "From {{ price }}",
+        "regular_price": "Regular price",
+        "sale_price": "Sale price"
+      },
+      "vendor": "Vendor",
+      "sku": "SKU",
+      "view_details": "View product",
+      "choose_options": "Choose options",
+      "media": {
+        "open_media": "Open media {{ index }} in full screen",
+        "play_video": "Play video for {{ product }}"
+      },
+      "upload": {
+        "heading": "Add your memories",
+        "subheading": "Drop your photos and videos, we take care of the rest.",
+        "dropzone_cta": "Drag files here or click to browse",
+        "accepted_formats": "Photos and videos accepted",
+        "add_more": "Add more files",
+        "remove_file": "Remove this file",
+        "uploading": "Uploading…",
+        "uploaded": "Memory added",
+        "error_generic": "This file could not be added. Please try again.",
+        "error_too_many": "You've reached the maximum number of files.",
+        "error_type": "Unsupported format. Please use a photo or video.",
+        "skip_note": "You can also email us your memories after checkout.",
+        "note_label": "Notes for your order (optional)",
+        "note_placeholder": "E.g. photo order, a message to display, an important date…"
+      }
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your cart",
+      "empty": "Your cart is empty",
+      "empty_link": "Discover LAMEA",
+      "subtotal": "Subtotal",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes and shipping calculated at checkout.",
+      "checkout": "Checkout",
+      "continue_shopping": "Continue shopping",
+      "remove": "Remove",
+      "update": "Update",
+      "close_cart": "Close cart",
+      "your_cart": "Your cart ({{ count }})",
+      "free_shipping_reached": "You've unlocked free shipping!",
+      "free_shipping_progress_html": "{{ amount }} away from free shipping.",
+      "note": "Add an order note"
+    },
+    "item": {
+      "personalization": "Personalization",
+      "files_attached": "{{ count }} file(s) attached"
+    }
+  },
+  "customer": {
+    "account": {
+      "title": "My account",
+      "details": "Account details",
+      "view_addresses": "View addresses",
+      "return": "Return to account details"
+    },
+    "account_fallback": "Account",
+    "log_in": "Log in",
+    "log_out": "Log out",
+    "login_page": {
+      "sign_in": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "forgot_password": "Forgot your password?",
+      "cancel": "Cancel",
+      "create_account": "Create account",
+      "guest_title": "Continue as a guest",
+      "guest_continue": "Continue"
+    },
+    "register": {
+      "title": "Create account",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Create my account"
+    },
+    "orders": {
+      "title": "Order history",
+      "order_number": "Order",
+      "date": "Date",
+      "payment_status": "Payment",
+      "fulfillment_status": "Status",
+      "total": "Total",
+      "none": "You haven't placed any orders yet."
+    },
+    "addresses": {
+      "title": "My addresses",
+      "add_new": "Add a new address",
+      "edit": "Edit",
+      "delete": "Delete",
+      "default": "Default address"
+    },
+    "reset_password": {
+      "title": "Reset your password",
+      "subtext": "We will send you an email to reset your password.",
+      "submit": "Submit"
+    }
+  },
+  "contact": {
+    "form": {
+      "title": "Contact",
+      "name": "Name",
+      "email": "Email",
+      "phone": "Phone (optional)",
+      "message": "Message",
+      "send": "Send",
+      "post_success": "Thanks, your message has been sent. We'll reply within 24-48h."
+    }
+  },
+  "collection": {
+    "general": {
+      "empty": "No products in this collection yet.",
+      "items_with_count": {
+        "one": "{{ count }} product",
+        "other": "{{ count }} products"
+      },
+      "filter_and_sort": "Filter and sort",
+      "sort_by": "Sort by",
+      "clear_all": "Clear all"
+    }
+  }
+}

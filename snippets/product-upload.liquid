@@ -1,0 +1,59 @@
+{%- comment -%}
+  Personalization / memories upload widget.
+  Accepts: product
+
+  Architecture (see README.md "Upload de médias"):
+  1. UI: the dropzone + preview list below (progressive enhancement only).
+  2. Logic: assets/media-upload.js.
+  3. Storage:
+     - upload_provider "none" (default): real native Shopify file
+       properties (`properties[Souvenir N]`), submitted as multipart
+       form data. Works with or without JavaScript.
+     - any other upload_provider value: files are uploaded to
+       settings.upload_endpoint_url, and the URL returned by that service
+       is stored as a plain text line-item property instead of the raw
+       file. Requires JavaScript; falls back to the native inputs if the
+       upload fails or JS is unavailable.
+  4. Line-item property: `properties[Souvenir N]` / `properties[Note]`,
+     visible to the merchant on the order page and in the cart drawer.
+{%- endcomment -%}
+{%- if settings.enable_media_upload -%}
+  <div
+    class="product-upload"
+    data-product-upload
+    data-provider="{{ settings.upload_provider | default: 'none' }}"
+    data-endpoint="{{ settings.upload_endpoint_url }}"
+    data-max-files="{{ settings.upload_max_files | default: 10 }}"
+  >
+    <p class="product-upload__heading">{{ 'products.product.upload.heading' | t }}</p>
+    <p class="product-upload__subheading text-muted">{{ 'products.product.upload.subheading' | t }}</p>
+
+    <button type="button" class="product-upload__dropzone" data-upload-dropzone aria-label="{{ 'products.product.upload.dropzone_cta' | t }}">
+      {% render 'icon', icon: 'upload', class: 'icon product-upload__icon' %}
+      <span class="product-upload__cta">{{ 'products.product.upload.dropzone_cta' | t }}</span>
+      <span class="product-upload__formats text-muted">{{ 'products.product.upload.accepted_formats' | t }}</span>
+    </button>
+    <input type="file" accept="image/*,video/*" multiple class="visually-hidden" data-upload-input tabindex="-1" aria-hidden="true">
+
+    <ul class="product-upload__list" data-upload-list role="list"></ul>
+
+    <p class="product-upload__error" data-upload-error role="alert" hidden></p>
+
+    <div class="product-upload__slots" data-upload-slots>
+      {%- assign max_files = settings.upload_max_files | default: 10 -%}
+      {%- for i in (1..max_files) -%}
+        <label class="product-upload__slot-label">
+          <span>{{ 'products.product.upload.heading' | t }} {{ forloop.index }}</span>
+          <input type="file" accept="image/*,video/*" name="properties[Souvenir {{ forloop.index }}]" data-upload-slot data-slot-index="{{ forloop.index0 }}">
+        </label>
+      {%- endfor -%}
+    </div>
+
+    <div class="field product-upload__note">
+      <label for="UploadNote-{{ product.id }}">{{ 'products.product.upload.note_label' | t }}</label>
+      <textarea id="UploadNote-{{ product.id }}" name="properties[Note]" rows="2" placeholder="{{ 'products.product.upload.note_placeholder' | t }}"></textarea>
+    </div>
+
+    <p class="product-upload__skip text-muted">{{ 'products.product.upload.skip_note' | t }}</p>
+  </div>
+{%- endif -%}

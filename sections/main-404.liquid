@@ -1,0 +1,37 @@
+<section class="not-found page-width" {{ section.shopify_attributes }}>
+  <div class="not-found__content" data-reveal="fade">
+    <p class="eyebrow">404</p>
+    <h1 class="not-found__title font-heading">{{ 'general.404.title' | t }}</h1>
+    <p class="not-found__text text-muted">{{ 'general.404.subtext' | t }}</p>
+    <a href="{{ routes.root_url }}" class="button button--accent"><span>{{ 'general.404.link' | t }}</span></a>
+  </div>
+</section>
+
+{% stylesheet %}
+.not-found {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.not-found__content {
+  max-width: 32rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.not-found__title {
+  font-size: clamp(2rem, 1.7rem + 1.4vw, 2.8rem);
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Page 404",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,128 @@
+<section class="gift-compare section-padding" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="section-intro section-intro--center" data-reveal="fade">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-heading section-heading--center font-heading">{{ section.settings.heading }}</h2>
+      {%- if section.settings.text != blank -%}<p class="section-text" style="margin-inline:auto;text-align:center;">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+
+    <div class="gift-compare__grid" data-reveal-group>
+      <div class="gift-compare__card gift-compare__card--before" data-reveal="left">
+        <span class="gift-compare__tag">{{ section.settings.before_label }}</span>
+        <div class="aspect-ratio gift-compare__media">
+          {%- if section.settings.before_image -%}
+            <img src="{{ section.settings.before_image | image_url: width: 700 }}" alt="{{ section.settings.before_image.alt | escape }}" width="{{ section.settings.before_image.width }}" height="{{ section.settings.before_image.height }}" loading="lazy">
+          {%- else -%}
+            <span class="placeholder-media">LAMEA_PHONE_GALLERY_PLACEHOLDER</span>
+          {%- endif -%}
+        </div>
+        <p class="gift-compare__caption">{{ section.settings.before_text }}</p>
+      </div>
+
+      <div class="gift-compare__arrow" aria-hidden="true">{% render 'icon', icon: 'chevron-right' %}</div>
+
+      <div class="gift-compare__card gift-compare__card--after" data-reveal="right">
+        <span class="gift-compare__tag gift-compare__tag--accent">{{ section.settings.after_label }}</span>
+        <div class="aspect-ratio gift-compare__media">
+          {%- if section.settings.after_image -%}
+            <img src="{{ section.settings.after_image | image_url: width: 700 }}" alt="{{ section.settings.after_image.alt | escape }}" width="{{ section.settings.after_image.width }}" height="{{ section.settings.after_image.height }}" loading="lazy">
+          {%- else -%}
+            <span class="placeholder-media">LAMEA_COUPLE_01_PLACEHOLDER</span>
+          {%- endif -%}
+        </div>
+        <p class="gift-compare__caption">{{ section.settings.after_text }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.gift-compare__grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.gift-compare__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.gift-compare__card--before {
+  opacity: 0.85;
+}
+
+.gift-compare__tag {
+  align-self: flex-start;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.gift-compare__tag--accent {
+  color: var(--color-accent);
+}
+
+.gift-compare__media {
+  aspect-ratio: 4/5;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.gift-compare__card--before .gift-compare__media {
+  filter: grayscale(0.35) brightness(0.97);
+}
+
+.gift-compare__card--after .gift-compare__media {
+  box-shadow: 0 30px 60px -30px rgba(122, 46, 50, 0.45);
+}
+
+.gift-compare__caption {
+  font-size: 0.95rem;
+  color: var(--color-text-muted);
+  max-width: 30ch;
+}
+
+.gift-compare__arrow {
+  color: var(--color-accent);
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-background-alt);
+}
+
+@media screen and (max-width: 749px) {
+  .gift-compare__grid {
+    grid-template-columns: 1fr;
+  }
+  .gift-compare__arrow {
+    transform: rotate(90deg);
+    margin-inline: auto;
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Comparaison souvenir",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "La différence LAMEA" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Un cadeau. Des centaines de souvenirs." },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Une photo dort dans votre téléphone. Un souvenir LAMEA se regarde, encore et encore." },
+    { "type": "image_picker", "id": "before_image", "label": "Image « avant »" },
+    { "type": "text", "id": "before_label", "label": "Étiquette « avant »", "default": "Avant" },
+    { "type": "textarea", "id": "before_text", "label": "Texte « avant »", "default": "Des milliers de photos perdues dans une pellicule sans fin." },
+    { "type": "image_picker", "id": "after_image", "label": "Image « après »" },
+    { "type": "text", "id": "after_label", "label": "Étiquette « après »", "default": "Avec LAMEA" },
+    { "type": "textarea", "id": "after_text", "label": "Texte « après »", "default": "Les moments qui comptent, toujours sous vos yeux." }
+  ],
+  "presets": [{ "name": "Comparaison souvenir" }]
+}
+{% endschema %}

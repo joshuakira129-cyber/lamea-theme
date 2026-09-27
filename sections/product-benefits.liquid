@@ -1,0 +1,104 @@
+<section class="benefits section-padding" {{ section.shopify_attributes }}>
+  <div class="page-width">
+    <div class="section-intro section-intro--center" data-reveal="fade">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h2 class="section-heading section-heading--center font-heading">{{ section.settings.heading }}</h2>
+    </div>
+
+    <div class="benefits__grid" data-reveal-group>
+      {%- for block in section.blocks -%}
+        <div class="benefit-card hover-lift" data-reveal="fade" {{ block.shopify_attributes }}>
+          <div class="benefit-card__icon">{% render 'icon', icon: block.settings.icon %}</div>
+          <h3 class="benefit-card__title">{{ block.settings.title }}</h3>
+          <p class="benefit-card__text text-muted">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+.benefits__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--grid-gutter);
+}
+
+.benefit-card {
+  background: var(--color-background-alt);
+  border-radius: 16px;
+  padding: 1.75rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.benefit-card__icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent);
+}
+
+.benefit-card__title {
+  font-size: 1.05rem;
+}
+
+.benefit-card__text {
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 989px) {
+  .benefits__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Bénéfices produit",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Pourquoi LAMEA" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Bien plus qu'un cadre" }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Bénéfice",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "image", "label": "Photo" },
+            { "value": "video", "label": "Vidéo" },
+            { "value": "gift", "label": "Cadeau" },
+            { "value": "frame", "label": "Cadre" },
+            { "value": "shield", "label": "Sécurité" },
+            { "value": "truck", "label": "Livraison" }
+          ],
+          "default": "frame"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Simple à remplir" },
+        { "type": "textarea", "id": "text", "label": "Texte", "default": "Glissez vos souvenirs en quelques secondes, sans complexité." }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "benefit", "settings": { "icon": "frame", "title": "Simple à remplir", "text": "Glissez vos souvenirs en quelques secondes." } },
+      { "type": "benefit", "settings": { "icon": "gift", "title": "Prêt à offrir", "text": "Livré déjà préparé avec vos souvenirs." } },
+      { "type": "benefit", "settings": { "icon": "video", "title": "Photos et vidéos", "text": "Mélangez vos souvenirs comme vous le souhaitez." } },
+      { "type": "benefit", "settings": { "icon": "shield", "title": "Fabrication soignée", "text": "Un objet pensé pour durer et se transmettre." } }
+    ]
+  },
+  "presets": [{ "name": "Bénéfices produit" }]
+}
+{% endschema %}

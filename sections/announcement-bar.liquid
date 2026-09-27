@@ -1,0 +1,84 @@
+{%- if section.blocks.size > 0 -%}
+<div class="announcement-bar" data-announcement-bar style="--announcement-bg: {{ section.settings.background }}; --announcement-text: {{ section.settings.text_color }};">
+  <div class="page-width announcement-bar__inner">
+    {%- for block in section.blocks -%}
+      <div class="announcement-bar__item" data-announcement-item {{ block.shopify_attributes }}>
+        {%- if block.settings.link -%}<a href="{{ block.settings.link }}">{%- endif -%}
+        <p>{{ block.settings.text }}</p>
+        {%- if block.settings.link -%}</a>{%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% stylesheet %}
+.announcement-bar {
+  background: var(--announcement-bg, var(--color-text));
+  color: var(--announcement-text, var(--color-background));
+}
+.announcement-bar__inner {
+  padding-block: 0.55rem;
+  min-height: 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.announcement-bar__item {
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+}
+.announcement-bar__item p {
+  margin: 0;
+}
+.announcement-bar__item a:hover {
+  text-decoration: underline;
+}
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Barre d'annonce",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "color",
+      "id": "background",
+      "label": "Fond",
+      "default": "#1C1917"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Texte",
+      "default": "#FAF7F2"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Texte",
+          "default": "Livraison offerte dès 2 cadres · Prêt à offrir en 3 jours"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Lien (facultatif)"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "text": "Livraison offerte dès 2 cadres" } },
+      { "type": "message", "settings": { "text": "Prêt à offrir en 3 jours" } }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,69 @@
+<section class="account-page account-page--wide page-width section-padding">
+  <div class="account-header" data-reveal="fade">
+    <h1 class="font-heading">{{ 'customer.addresses.title' | t }}</h1>
+    <a href="{{ routes.account_url }}" class="link link--muted">{{ 'customer.account.return' | t }}</a>
+  </div>
+
+  <div class="addresses-grid">
+    {%- for address in customer.addresses -%}
+      <div class="address-card">
+        {{ address | format_address }}
+        {%- if address == customer.default_address -%}
+          <span class="badge">{{ 'customer.addresses.default' | t }}</span>
+        {%- endif -%}
+        <div class="address-card__actions">
+          <a href="{{ routes.account_addresses_url }}/{{ address.id }}/edit" class="link">{{ 'customer.addresses.edit' | t }}</a>
+          {%- form 'customer_address', address -%}
+            <button type="submit" name="_method" value="delete" class="link link--muted" onclick="return confirm('{{ 'customer.addresses.delete' | t }} ?')">
+              {{ 'customer.addresses.delete' | t }}
+            </button>
+          {%- endform -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% style %}
+.account-page--wide {
+  display: block;
+}
+
+.account-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.addresses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.address-card {
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
+  padding: 1.25rem;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.address-card__actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.address-card__actions button {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: inherit;
+}
+{% endstyle %}

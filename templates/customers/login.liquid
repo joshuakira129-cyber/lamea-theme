@@ -1,0 +1,102 @@
+<section class="account-page page-width section-padding">
+  <div class="account-card" data-reveal="fade">
+    <h1 class="account-card__title font-heading">{{ 'customer.login_page.sign_in' | t }}</h1>
+
+    {%- form 'customer_login' -%}
+      {%- if form.errors -%}
+        <ul class="account-card__errors" role="alert">
+          {%- for field in form.errors -%}
+            <li>{{ form.errors.messages[field] }}</li>
+          {%- endfor -%}
+        </ul>
+      {%- endif -%}
+
+      <div class="field">
+        <label for="CustomerEmail">{{ 'customer.login_page.email' | t }}</label>
+        <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" required>
+      </div>
+
+      {%- if form.password_needed -%}
+        <div class="field">
+          <label for="CustomerPassword">{{ 'customer.login_page.password' | t }}</label>
+          <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" required>
+        </div>
+      {%- endif -%}
+
+      <button type="submit" class="button button--accent button--full">{{ 'customer.login_page.sign_in' | t }}</button>
+
+      <a href="#recover" class="link link--muted account-card__forgot" data-forgot-password-toggle>{{ 'customer.login_page.forgot_password' | t }}</a>
+
+      <div class="account-card__recover" data-forgot-password-panel hidden>
+        {%- form 'recover_customer_password' -%}
+          {%- if form.posted_successfully? -%}
+            <p role="status">{{ 'customer.reset_password.subtext' | t }}</p>
+          {%- endif -%}
+          <div class="field">
+            <label for="RecoverEmail">{{ 'customer.login_page.email' | t }}</label>
+            <input type="email" name="email" id="RecoverEmail" required>
+          </div>
+          <button type="submit" class="button button--secondary button--full">{{ 'customer.reset_password.submit' | t }}</button>
+        {%- endform -%}
+      </div>
+    {%- endform -%}
+
+    <p class="account-card__footer">
+      <a href="{{ routes.account_register_url }}" class="link">{{ 'customer.login_page.create_account' | t }}</a>
+    </p>
+  </div>
+</section>
+
+{% style %}
+.account-page {
+  display: flex;
+  justify-content: center;
+}
+
+.account-card {
+  width: 100%;
+  max-width: 26rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.account-card__title {
+  font-size: 1.9rem;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.account-card__errors {
+  color: #b23b3b;
+  font-size: 0.85rem;
+}
+
+.account-card__forgot {
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.account-card__recover {
+  border-top: 1px solid var(--color-border);
+  padding-top: 1rem;
+}
+
+.account-card__footer {
+  text-align: center;
+  font-size: 0.9rem;
+}
+{% endstyle %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var toggle = document.querySelector('[data-forgot-password-toggle]');
+    var panel = document.querySelector('[data-forgot-password-panel]');
+    if (toggle && panel) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        panel.hidden = !panel.hidden;
+      });
+    }
+  });
+</script>
