@@ -6,8 +6,17 @@
     </div>
   </div>
 
+  {%- liquid
+    assign linked_product = section.settings.linked_product
+    assign is_video = false
+    if section.settings.media_type == 'video' and section.settings.video != blank
+      assign is_video = true
+    endif
+  -%}
   <div class="showcase__media hover-zoom" data-reveal="scale">
-    {%- if section.settings.media_type == 'video' and section.settings.video != blank -%}
+    {%- if linked_product != blank and is_video == false -%}<a href="{{ linked_product.url }}" aria-label="{{ 'products.product.view_details' | t }} — {{ linked_product.title }}">{%- endif -%}
+
+    {%- if is_video -%}
       <div class="aspect-ratio showcase__media-inner">
         {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, image_size: '1920x' }}
       </div>
@@ -28,6 +37,14 @@
         <span class="placeholder-media">LAMEA_PRODUCT_DEMO_PLACEHOLDER — vidéo ou image 16:9</span>
       </div>
     {%- endif -%}
+
+    {%- if linked_product != blank and is_video == false -%}</a>{%- endif -%}
+
+    {%- if linked_product != blank and is_video -%}
+      <a href="{{ linked_product.url }}" class="showcase__cta button button--outline-light button--small">
+        <span>{{ 'products.product.view_details' | t }}</span>
+      </a>
+    {%- endif -%}
   </div>
 
   {%- if section.settings.caption != blank -%}
@@ -39,11 +56,26 @@
 
 {% stylesheet %}
 .showcase__media {
+  position: relative;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   border-radius: 20px;
   overflow: hidden;
+}
+
+.showcase__media > a {
+  display: block;
+  cursor: pointer;
+}
+
+.showcase__cta {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  backdrop-filter: blur(4px);
+  background: rgba(28, 25, 23, 0.35);
 }
 
 .showcase__media-inner {
@@ -91,7 +123,13 @@
     },
     { "type": "image_picker", "id": "image", "label": "Image" },
     { "type": "video", "id": "video", "label": "Vidéo" },
-    { "type": "text", "id": "caption", "label": "Légende (facultative)" }
+    { "type": "text", "id": "caption", "label": "Légende (facultative)" },
+    {
+      "type": "product",
+      "id": "linked_product",
+      "label": "Produit associé",
+      "info": "Si renseigné, l'image (ou un bouton sur la vidéo) devient cliquable vers la fiche produit."
+    }
   ],
   "presets": [{ "name": "Démonstration produit" }]
 }
