@@ -55,14 +55,16 @@
       ]
     }
   ],
-  "default": {
-    "blocks": [
-      { "type": "question", "settings": {} },
-      { "type": "question", "settings": { "question": "Quels formats de fichiers sont acceptés ?", "answer": "<p>Les formats photo et vidéo les plus courants sont acceptés. Le détail exact est précisé sur la fiche produit.</p>" } },
-      { "type": "question", "settings": { "question": "Quel est le délai de livraison ?", "answer": "<p>Les délais de préparation et de livraison sont indiqués sur la fiche produit et la page Livraison.</p>" } },
-      { "type": "question", "settings": { "question": "Puis-je modifier les souvenirs après l'achat ?", "answer": "<p>Cela dépend du modèle choisi. Consultez la fiche produit pour les détails de connectique et de mise à jour.</p>" } }
-    ]
-  },
-  "presets": [{ "name": "FAQ" }]
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "question", "settings": {} },
+        { "type": "question", "settings": { "question": "Quels formats de fichiers sont acceptés ?", "answer": "<p>Les formats photo et vidéo les plus courants sont acceptés. Le détail exact est précisé sur la fiche produit.</p>" } },
+        { "type": "question", "settings": { "question": "Quel est le délai de livraison ?", "answer": "<p>Les délais de préparation et de livraison sont indiqués sur la fiche produit et la page Livraison.</p>" } },
+        { "type": "question", "settings": { "question": "Puis-je modifier les souvenirs après l'achat ?", "answer": "<p>Cela dépend du modèle choisi. Consultez la fiche produit pour les détails de connectique et de mise à jour.</p>" } }
+      ]
+    }
+  ]
 }
 {% endschema %}
