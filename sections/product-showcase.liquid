@@ -12,6 +12,11 @@
     if section.settings.media_type == 'video' and section.settings.video != blank
       assign is_video = true
     endif
+
+    assign showcase_image = section.settings.image
+    if showcase_image == blank and linked_product != blank and linked_product.featured_image != blank
+      assign showcase_image = linked_product.featured_image
+    endif
   -%}
   <div class="showcase__media hover-zoom" data-reveal="scale">
     {%- if linked_product != blank and is_video == false -%}<a href="{{ linked_product.url }}" aria-label="{{ 'products.product.view_details' | t }} — {{ linked_product.title }}">{%- endif -%}
@@ -20,15 +25,15 @@
       <div class="aspect-ratio showcase__media-inner">
         {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, image_size: '1920x' }}
       </div>
-    {%- elsif section.settings.image -%}
+    {%- elsif showcase_image != blank -%}
       <div class="aspect-ratio showcase__media-inner">
         <img
-          src="{{ section.settings.image | image_url: width: 1920 }}"
-          srcset="{{ section.settings.image | image_url: width: 900 }} 900w, {{ section.settings.image | image_url: width: 1600 }} 1600w, {{ section.settings.image | image_url: width: 2200 }} 2200w"
+          src="{{ showcase_image | image_url: width: 1920 }}"
+          srcset="{{ showcase_image | image_url: width: 900 }} 900w, {{ showcase_image | image_url: width: 1600 }} 1600w, {{ showcase_image | image_url: width: 2200 }} 2200w"
           sizes="100vw"
-          alt="{{ section.settings.image.alt | escape }}"
-          width="{{ section.settings.image.width }}"
-          height="{{ section.settings.image.height }}"
+          alt="{{ showcase_image.alt | default: linked_product.title | escape }}"
+          width="{{ showcase_image.width }}"
+          height="{{ showcase_image.height }}"
           loading="lazy"
         >
       </div>
@@ -121,14 +126,19 @@
       ],
       "default": "image"
     },
-    { "type": "image_picker", "id": "image", "label": "Image" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image (facultative)",
+      "info": "Laissez vide pour utiliser automatiquement la photo principale du produit associé ci-dessous."
+    },
     { "type": "video", "id": "video", "label": "Vidéo" },
     { "type": "text", "id": "caption", "label": "Légende (facultative)" },
     {
       "type": "product",
       "id": "linked_product",
       "label": "Produit associé",
-      "info": "Si renseigné, l'image (ou un bouton sur la vidéo) devient cliquable vers la fiche produit."
+      "info": "Rend l'image cliquable vers la fiche produit, et fournit automatiquement la photo si aucune image n'est choisie ci-dessus."
     }
   ],
   "presets": [{ "name": "Démonstration produit" }]
