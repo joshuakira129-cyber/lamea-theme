@@ -299,6 +299,22 @@ main#MainContent {
   border-color: rgba(255, 255, 255, 0.65);
 }
 
+/* Theme Settings → Boutons & formulaires → Style des boutons */
+.button-style-outline .button:not(.button--outline-light) {
+  --button-bg: transparent;
+  --button-color: var(--color-text);
+}
+
+.button-style-outline .button--accent {
+  --button-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.button-style-outline .button--accent:hover {
+  --button-bg: var(--color-accent);
+  --button-color: var(--color-accent-text);
+}
+
 .button--full {
   width: 100%;
 }

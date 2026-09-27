@@ -42,7 +42,7 @@
     <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
   </head>
 
-  <body class="theme-body{% if settings.enable_hover_effects %} theme-hover-enabled{% endif %}">
+  <body class="theme-body{% if settings.enable_hover_effects %} theme-hover-enabled{% endif %}{% if settings.button_style == 'outline' %} button-style-outline{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'general.accessibility.skip_to_content' | t }}
     </a>
