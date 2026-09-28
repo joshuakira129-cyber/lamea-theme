@@ -9,7 +9,9 @@
       {%- for block in section.blocks -%}
         <div class="how-it-works__step" data-reveal="fade" {{ block.shopify_attributes }}>
           <div class="aspect-ratio how-it-works__media hover-zoom">
-            {%- if block.settings.image -%}
+            {%- if block.settings.video != blank -%}
+              {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, image_size: '700x' }}
+            {%- elsif block.settings.image -%}
               <img src="{{ block.settings.image | image_url: width: 700 }}" alt="{{ block.settings.image.alt | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy">
             {%- else -%}
               <span class="placeholder-media">LAMEA_STEP_{{ forloop.index }}_PLACEHOLDER</span>
@@ -49,6 +51,13 @@
   border-radius: 16px;
   overflow: hidden;
   background: var(--color-background-alt);
+}
+
+.how-it-works__media video,
+.how-it-works__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .how-it-works__number {
@@ -95,7 +104,13 @@
       "type": "step",
       "name": "Étape",
       "settings": [
-        { "type": "image_picker", "id": "image", "label": "Image" },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Vidéo (prioritaire sur l'image)",
+          "info": "Uploadez un fichier vidéo (MP4) depuis votre ordinateur."
+        },
+        { "type": "image_picker", "id": "image", "label": "Image (si pas de vidéo)" },
         { "type": "text", "id": "title", "label": "Titre", "default": "Choisissez votre LAMEA" },
         { "type": "textarea", "id": "text", "label": "Texte", "default": "Sélectionnez la taille et la finition qui correspondent à votre souvenir." }
       ]
