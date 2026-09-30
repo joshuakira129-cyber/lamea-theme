@@ -3,7 +3,7 @@
     "hero": {
       "type": "hero-lamea",
       "settings": {
-        "image": "shopify://shop_images/Image_ChatGPT_30_sept._2026_21_42_06.png"
+        "image": "shopify://shop_images/Image_ChatGPT_27_sept._2026_18_45_15.png"
       }
     },
     "trust-bar": {
@@ -20,7 +20,8 @@
     "showcase": {
       "type": "product-showcase",
       "settings": {
-        "linked_product": "16592557736327"
+        "image": "shopify://shop_images/ImageChatGPT27sept.2026_22_52_51-4.png",
+        "linked_product": "gid://shopify/Product/16592557736327"
       }
     },
     "compare": {
@@ -97,7 +98,7 @@
     "final-cta": {
       "type": "final-cta",
       "settings": {
-        "image": "shopify://shop_images/Image_Codex_27_sept._2026_05_18_07_ec27bced-4193-4c6b-a5a5-c111449fb9fb.png",
+        "image": "shopify://shop_images/ImageChatGPT27sept.2026_22_52_50-3.png",
         "heading": "Offrez un souvenir qui prend vie",
         "cta_label": "Créer mon LAMEA"
       }

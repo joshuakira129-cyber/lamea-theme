@@ -28,7 +28,9 @@
     },
     "story": {
       "type": "product-story",
-      "settings": {}
+      "settings": {
+        "image": "shopify://shop_images/ImageChatGPT27sept.2026_22_52_52-6.png"
+      }
     },
     "how-it-works": {
       "type": "how-it-works",
