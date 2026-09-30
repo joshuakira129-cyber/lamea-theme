@@ -17,10 +17,16 @@
     if showcase_image == blank and linked_product != blank and linked_product.featured_image != blank
       assign showcase_image = linked_product.featured_image
     endif
-  -%}
-  <div class="showcase__media hover-zoom" data-reveal="scale">
-    {%- if linked_product != blank and is_video == false -%}<a href="{{ linked_product.url }}" aria-label="{{ 'products.product.view_details' | t }} — {{ linked_product.title }}">{%- endif -%}
 
+    assign product_link = section.settings.product_link
+    if product_link == blank and linked_product != blank
+      assign product_link = linked_product.url
+    endif
+  -%}
+
+  {%- if product_link != blank -%}<a href="{{ product_link }}" class="showcase__link" aria-label="{{ 'products.product.view_details' | t }}">{%- endif -%}
+
+  <div class="showcase__media hover-zoom" data-reveal="scale">
     {%- if is_video -%}
       <div class="aspect-ratio showcase__media-inner">
         {{ section.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, image_size: '1920x' }}
@@ -43,12 +49,10 @@
       </div>
     {%- endif -%}
 
-    {%- if linked_product != blank and is_video == false -%}</a>{%- endif -%}
-
-    {%- if linked_product != blank and is_video -%}
-      <a href="{{ linked_product.url }}" class="showcase__cta button button--outline-light button--small">
+    {%- if product_link != blank and is_video -%}
+      <span class="showcase__cta button button--outline-light button--small">
         <span>{{ 'products.product.view_details' | t }}</span>
-      </a>
+      </span>
     {%- endif -%}
   </div>
 
@@ -57,6 +61,8 @@
       <p class="showcase__price" data-reveal="fade">{{ section.settings.price_text }}</p>
     </div>
   {%- endif -%}
+
+  {%- if product_link != blank -%}</a>{%- endif -%}
 
   {%- if section.settings.caption != blank -%}
     <div class="page-width">
@@ -75,9 +81,14 @@
   overflow: hidden;
 }
 
-.showcase__media > a {
+.showcase__link {
   display: block;
   cursor: pointer;
+}
+
+.showcase__link:hover .showcase__price {
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .showcase__cta {
@@ -163,10 +174,16 @@
     },
     { "type": "text", "id": "caption", "label": "Légende (facultative)" },
     {
+      "type": "url",
+      "id": "product_link",
+      "label": "Lien vers le produit",
+      "info": "Rend l'image ET le prix cliquables vers cette page. Collez ici le lien de votre produit (ex. /products/votre-produit)."
+    },
+    {
       "type": "product",
       "id": "linked_product",
-      "label": "Produit associé",
-      "info": "Rend l'image cliquable vers la fiche produit, et fournit automatiquement la photo si aucune image n'est choisie ci-dessus."
+      "label": "Produit associé (optionnel)",
+      "info": "Sert uniquement à remplir automatiquement la photo si aucune image n'est choisie ci-dessus."
     }
   ],
   "presets": [{ "name": "Démonstration produit" }]

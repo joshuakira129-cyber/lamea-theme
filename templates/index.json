@@ -21,6 +21,7 @@
       "type": "product-showcase",
       "settings": {
         "image": "shopify://shop_images/ImageChatGPT27sept.2026_22_52_51-4.png",
+        "product_link": "/products/lamea-le-cadre-qui-fait-revivre-vos-souvenirs",
         "linked_product": "gid://shopify/Product/16592557736327"
       }
     },
