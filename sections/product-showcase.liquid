@@ -52,6 +52,12 @@
     {%- endif -%}
   </div>
 
+  {%- if section.settings.show_price and section.settings.price_text != blank -%}
+    <div class="page-width">
+      <p class="showcase__price" data-reveal="fade">{{ section.settings.price_text }}</p>
+    </div>
+  {%- endif -%}
+
   {%- if section.settings.caption != blank -%}
     <div class="page-width">
       <p class="showcase__caption text-muted" data-reveal="fade">{{ section.settings.caption }}</p>
@@ -94,9 +100,18 @@
   object-fit: cover;
 }
 
+.showcase__price {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  font-family: var(--font-heading-family);
+}
+
 .showcase__caption {
   text-align: center;
-  margin-top: 1.25rem;
+  margin-top: 0.5rem;
   font-size: 0.9rem;
 }
 
@@ -133,6 +148,19 @@
       "info": "Laissez vide pour utiliser automatiquement la photo principale du produit associé ci-dessous."
     },
     { "type": "video", "id": "video", "label": "Vidéo" },
+    {
+      "type": "checkbox",
+      "id": "show_price",
+      "label": "Afficher le prix sous l'image",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "price_text",
+      "label": "Prix affiché",
+      "info": "Doit correspondre au prix réel du produit — mettez-le à jour si le prix change.",
+      "default": "CHF 89.90"
+    },
     { "type": "text", "id": "caption", "label": "Légende (facultative)" },
     {
       "type": "product",
