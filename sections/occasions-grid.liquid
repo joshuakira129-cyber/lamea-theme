@@ -7,7 +7,7 @@
 
     <div class="occasions__grid" data-reveal-group>
       {%- for block in section.blocks -%}
-        <a href="{{ block.settings.link | default: '#' }}" class="occasion-card hover-zoom" data-reveal="fade" {{ block.shopify_attributes }}>
+        <a href="{{ block.settings.link | default: '#' }}" class="occasion-card hover-zoom" data-reveal="fade" data-tilt data-tilt-max="5" {{ block.shopify_attributes }}>
           <div class="aspect-ratio occasion-card__media">
             {%- if block.settings.image -%}
               <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.image.alt | escape }}" width="{{ block.settings.image.width }}" height="{{ block.settings.image.height }}" loading="lazy">

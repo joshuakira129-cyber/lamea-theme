@@ -31,7 +31,7 @@
     <p class="hero__text" data-reveal="fade" style="--reveal-delay: 180ms;">{{ section.settings.text }}</p>
     <div class="hero__actions" data-reveal="fade" style="--reveal-delay: 270ms;">
       {%- if section.settings.primary_link != blank -%}
-        <a href="{{ section.settings.primary_link }}" class="button button--accent">
+        <a href="{{ section.settings.primary_link }}" class="button button--accent" data-magnetic>
           <span>{{ section.settings.primary_label }}</span>
         </a>
       {%- endif -%}

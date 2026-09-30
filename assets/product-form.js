@@ -244,16 +244,24 @@
       if (window.LAMEA && window.LAMEA.cart) {
         window.LAMEA.cart
           .addItem(formData)
+          .then(function (item) {
+            if (submitButton) {
+              submitButton.classList.remove("is-loading");
+              submitButton.classList.add("is-success");
+              setTimeout(function () {
+                submitButton.classList.remove("is-success");
+              }, 1800);
+            }
+            return item;
+          })
           .catch(function (error) {
+            if (submitButton) submitButton.classList.remove("is-loading");
             if (errorEl) {
               errorEl.hidden = false;
               errorEl.textContent =
                 (error && error.data && error.data.description) ||
                 "Une erreur est survenue. Merci de réessayer.";
             }
-          })
-          .then(function () {
-            if (submitButton) submitButton.classList.remove("is-loading");
           });
       } else {
         form.submit();

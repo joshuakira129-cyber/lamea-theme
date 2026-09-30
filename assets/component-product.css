@@ -39,6 +39,11 @@
   flex: 0 0 100%;
   scroll-snap-align: start;
   aspect-ratio: 4/5;
+  overflow: hidden;
+}
+
+.product-gallery__slide[data-magnify] {
+  cursor: zoom-in;
 }
 
 .product-gallery__slide img,

@@ -567,3 +567,53 @@ main#MainContent {
   line-height: 1.65;
   max-width: 60ch;
 }
+
+/* --------------------------------------------------------------------------
+   Premium micro-interactions (assets/motion-plus.js) — desktop only.
+   -------------------------------------------------------------------------- */
+[data-tilt] {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+  transform-style: preserve-3d;
+}
+
+[data-magnetic] {
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  display: inline-flex;
+}
+
+[data-magnify] {
+  overflow: hidden;
+}
+
+[data-magnify] img {
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+}
+
+/* Add-to-cart success micro-interaction */
+.product-form__submit.is-success {
+  --button-bg: var(--color-accent);
+  --button-color: var(--color-accent-text);
+}
+
+.product-form__submit .success-check {
+  display: none;
+  width: 1.1rem;
+  height: 1.1rem;
+}
+
+.product-form__submit.is-success .success-check {
+  display: inline-block;
+  animation: lamea-check-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-form__submit.is-success .spinner,
+.product-form__submit.is-success .product-form__submit-label {
+  display: none;
+}
+
+@keyframes lamea-check-pop {
+  from { transform: scale(0.4); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

@@ -2,7 +2,7 @@
   Accepts: product, image_ratio (optional, default '4/5')
 {%- endcomment -%}
 <div class="product-card">
-  <a href="{{ product.url }}" class="product-card__media-link hover-zoom">
+  <a href="{{ product.url }}" class="product-card__media-link hover-zoom" data-tilt data-tilt-max="4">
     <div class="aspect-ratio product-card__media" style="aspect-ratio: {{ image_ratio | default: '4/5' }};">
       {%- if product.featured_media -%}
         <img

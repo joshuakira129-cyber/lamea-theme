@@ -37,6 +37,7 @@
             {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}
           >
             <span class="spinner" aria-hidden="true"></span>
+            {% render 'icon', icon: 'check', class: 'icon success-check' %}
             <span class="product-form__submit-label">
               {%- if product.selected_or_first_available_variant.available -%}
                 {{ 'products.product.buy_now' | t }}

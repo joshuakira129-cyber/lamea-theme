@@ -40,6 +40,9 @@
 
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+    {%- if settings.enable_hover_effects -%}
+      <script src="{{ 'motion-plus.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
   </head>
 
   <body class="theme-body{% if settings.enable_hover_effects %} theme-hover-enabled{% endif %}{% if settings.button_style == 'outline' %} button-style-outline{% endif %}">

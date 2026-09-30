@@ -13,7 +13,7 @@
     <h2 class="final-cta__heading font-heading">{{ section.settings.heading }}</h2>
     {%- if section.settings.text != blank -%}<p class="final-cta__text">{{ section.settings.text }}</p>{%- endif -%}
     {%- if section.settings.cta_label != blank -%}
-      <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="button button--accent">
+      <a href="{{ section.settings.cta_link | default: routes.all_products_collection_url }}" class="button button--accent" data-magnetic>
         <span>{{ section.settings.cta_label }}</span>
       </a>
     {%- endif -%}
