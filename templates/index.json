@@ -1,38 +1,103 @@
 {
   "sections": {
     "hero": {
-      "type": "hero-lamea"
+      "type": "hero-lamea",
+      "settings": {
+        "image": "shopify://shop_images/Image_ChatGPT_30_sept._2026_21_42_06.png"
+      }
     },
     "trust-bar": {
-      "type": "trust-bar"
+      "type": "trust-bar",
+      "blocks": {
+        "b1": { "type": "item", "settings": { "icon": "image", "label": "Photos et vidéos" } },
+        "b2": { "type": "item", "settings": { "icon": "gift", "label": "Prêt à offrir" } },
+        "b3": { "type": "item", "settings": { "icon": "frame", "label": "Facile à personnaliser" } },
+        "b4": { "type": "item", "settings": { "icon": "truck", "label": "Expédié sous 3 jours" } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4"],
+      "settings": {}
     },
     "showcase": {
-      "type": "product-showcase"
+      "type": "product-showcase",
+      "settings": {
+        "linked_product": "16592557736327"
+      }
     },
     "compare": {
-      "type": "comparison-section"
+      "type": "comparison-section",
+      "settings": {
+        "before_image": "shopify://shop_images/1_lamea_phone.png",
+        "after_image": "shopify://shop_images/1_lamea.png"
+      }
     },
     "how-it-works": {
-      "type": "how-it-works"
+      "type": "how-it-works",
+      "blocks": {
+        "s1": { "type": "step", "settings": { "image": "shopify://shop_images/Image_ChatGPT_30_sept._2026_21_36_30-1.png", "title": "Choisissez votre LAMEA", "text": "Sélectionnez la taille et la finition qui vous correspondent." } },
+        "s2": { "type": "step", "settings": { "image": "shopify://shop_images/Image_ChatGPT_30_sept._2026_21_36_31-2.png", "title": "Ajoutez vos souvenirs", "text": "Glissez vos photos et vidéos préférées, sans limite de créativité." } },
+        "s3": { "type": "step", "settings": { "image": "shopify://shop_images/Image_ChatGPT_30_sept._2026_21_36_31-3.png", "title": "Offrez-le", "text": "Recevez votre cadre prêt à offrir, déjà rempli de vos souvenirs." } }
+      },
+      "block_order": ["s1", "s2", "s3"],
+      "settings": {}
     },
     "story": {
-      "type": "story-section"
+      "type": "story-section",
+      "blocks": {
+        "m1": { "type": "moment", "settings": {} },
+        "m2": { "type": "moment", "settings": { "eyebrow": "Le voyage à deux", "heading": "Cette lumière, ce jour-là", "text": "Une vidéo de quelques secondes qui dit tout." } },
+        "m3": { "type": "moment", "settings": { "eyebrow": "Le quotidien", "heading": "Les petits riens qui comptent", "text": "Vos souvenirs méritent une place bien plus vivante qu'un tiroir." } }
+      },
+      "block_order": ["m1", "m2", "m3"],
+      "settings": {}
     },
     "ugc": {
-      "type": "ugc-slider"
+      "type": "ugc-slider",
+      "blocks": {
+        "u1": { "type": "media", "settings": {} },
+        "u2": { "type": "media", "settings": {} },
+        "u3": { "type": "media", "settings": {} }
+      },
+      "block_order": ["u1", "u2", "u3"],
+      "settings": {}
     },
     "testimonials": {
-      "type": "testimonials"
+      "type": "testimonials",
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": {} },
+        "t2": { "type": "testimonial", "settings": { "name": "Julien", "context": "Anniversaire de couple", "quote": "Elle a pleuré en le déballant. Un vrai succès." } },
+        "t3": { "type": "testimonial", "settings": { "name": "Sarah", "context": "Cadeau longue distance", "quote": "On se sent moins loin l'un de l'autre depuis." } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": {}
     },
     "occasions": {
-      "type": "occasions-grid"
+      "type": "occasions-grid",
+      "blocks": {
+        "o1": { "type": "occasion", "settings": { "label": "Anniversaire" } },
+        "o2": { "type": "occasion", "settings": { "label": "Saint-Valentin" } },
+        "o3": { "type": "occasion", "settings": { "label": "Couple" } },
+        "o4": { "type": "occasion", "settings": { "label": "Mariage" } },
+        "o5": { "type": "occasion", "settings": { "label": "Longue distance" } },
+        "o6": { "type": "occasion", "settings": { "label": "Noël" } }
+      },
+      "block_order": ["o1", "o2", "o3", "o4", "o5", "o6"],
+      "settings": {}
     },
     "faq": {
-      "type": "faq"
+      "type": "faq",
+      "blocks": {
+        "f1": { "type": "question", "settings": {} },
+        "f2": { "type": "question", "settings": { "question": "Quels formats de fichiers sont acceptés ?", "answer": "<p>Les formats photo et vidéo les plus courants sont acceptés. Le détail exact est précisé sur la fiche produit.</p>" } },
+        "f3": { "type": "question", "settings": { "question": "Quel est le délai de livraison ?", "answer": "<p>Les délais de préparation et de livraison sont indiqués sur la fiche produit et la page Livraison.</p>" } },
+        "f4": { "type": "question", "settings": { "question": "Puis-je modifier les souvenirs après l'achat ?", "answer": "<p>Cela dépend du modèle choisi. Consultez la fiche produit pour les détails de connectique et de mise à jour.</p>" } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": {}
     },
     "final-cta": {
       "type": "final-cta",
       "settings": {
+        "image": "shopify://shop_images/Image_Codex_27_sept._2026_05_18_07_ec27bced-4193-4c6b-a5a5-c111449fb9fb.png",
         "heading": "Offrez un souvenir qui prend vie",
         "cta_label": "Créer mon LAMEA"
       }

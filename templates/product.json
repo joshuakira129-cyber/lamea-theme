@@ -1,31 +1,84 @@
 {
   "sections": {
     "main": {
-      "type": "main-product"
+      "type": "main-product",
+      "blocks": {
+        "r1": { "type": "reassurance", "settings": { "icon": "truck", "text": "Livraison sous 3 à 7 jours" } },
+        "r2": { "type": "reassurance", "settings": { "icon": "shield", "text": "Paiement 100% sécurisé" } },
+        "r3": { "type": "reassurance", "settings": { "icon": "refresh", "text": "Satisfait ou remboursé sous 30 jours" } },
+        "a1": { "type": "accordion", "settings": { "title": "Livraison & retours", "content": "<p>Détaillez ici les informations de livraison et de retour.</p>" } },
+        "a2": { "type": "accordion", "settings": { "title": "Caractéristiques techniques", "content": "<p>Renseignez ici les dimensions, le matériau et la connectique confirmés pour votre produit.</p>" } },
+        "a3": { "type": "accordion", "settings": { "title": "Entretien", "content": "<p>Conseils d'entretien du cadre.</p>" } }
+      },
+      "block_order": ["r1", "r2", "r3", "a1", "a2", "a3"],
+      "settings": {
+        "tagline": "Le cadeau qu'on ne range pas dans un tiroir."
+      }
     },
     "benefits": {
-      "type": "product-benefits"
+      "type": "product-benefits",
+      "blocks": {
+        "be1": { "type": "benefit", "settings": { "icon": "frame", "title": "Simple à remplir", "text": "Glissez vos souvenirs en quelques secondes." } },
+        "be2": { "type": "benefit", "settings": { "icon": "gift", "title": "Prêt à offrir", "text": "Livré déjà préparé avec vos souvenirs." } },
+        "be3": { "type": "benefit", "settings": { "icon": "video", "title": "Photos et vidéos", "text": "Mélangez vos souvenirs comme vous le souhaitez." } },
+        "be4": { "type": "benefit", "settings": { "icon": "shield", "title": "Fabrication soignée", "text": "Un objet pensé pour durer et se transmettre." } }
+      },
+      "block_order": ["be1", "be2", "be3", "be4"],
+      "settings": {}
     },
     "story": {
-      "type": "product-story"
+      "type": "product-story",
+      "settings": {}
     },
     "how-it-works": {
-      "type": "how-it-works"
+      "type": "how-it-works",
+      "blocks": {
+        "s1": { "type": "step", "settings": { "title": "Choisissez votre LAMEA", "text": "Sélectionnez la taille et la finition qui vous correspondent." } },
+        "s2": { "type": "step", "settings": { "title": "Ajoutez vos souvenirs", "text": "Glissez vos photos et vidéos préférées, sans limite de créativité." } },
+        "s3": { "type": "step", "settings": { "title": "Offrez-le", "text": "Recevez votre cadre prêt à offrir, déjà rempli de vos souvenirs." } }
+      },
+      "block_order": ["s1", "s2", "s3"],
+      "settings": {}
     },
     "comparison": {
-      "type": "comparison-table"
+      "type": "comparison-table",
+      "blocks": {
+        "c1": { "type": "row", "settings": { "feature": "Photos et vidéos" } },
+        "c2": { "type": "row", "settings": { "feature": "Plusieurs souvenirs sur un seul cadre", "other_value": "1 seule photo" } },
+        "c3": { "type": "row", "settings": { "feature": "Personnalisable en quelques minutes", "other_value": "Impression à commander" } },
+        "c4": { "type": "row", "settings": { "feature": "Prêt à offrir", "other_value": "Nécessite un cadrage" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"],
+      "settings": {}
     },
     "testimonials": {
-      "type": "testimonials"
+      "type": "testimonials",
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": {} },
+        "t2": { "type": "testimonial", "settings": { "name": "Julien", "context": "Anniversaire de couple", "quote": "Elle a pleuré en le déballant. Un vrai succès." } },
+        "t3": { "type": "testimonial", "settings": { "name": "Sarah", "context": "Cadeau longue distance", "quote": "On se sent moins loin l'un de l'autre depuis." } }
+      },
+      "block_order": ["t1", "t2", "t3"],
+      "settings": {}
     },
     "faq": {
-      "type": "faq"
+      "type": "faq",
+      "blocks": {
+        "f1": { "type": "question", "settings": {} },
+        "f2": { "type": "question", "settings": { "question": "Quels formats de fichiers sont acceptés ?", "answer": "<p>Les formats photo et vidéo les plus courants sont acceptés. Le détail exact est précisé sur la fiche produit.</p>" } },
+        "f3": { "type": "question", "settings": { "question": "Quel est le délai de livraison ?", "answer": "<p>Les délais de préparation et de livraison sont indiqués sur la fiche produit et la page Livraison.</p>" } },
+        "f4": { "type": "question", "settings": { "question": "Puis-je modifier les souvenirs après l'achat ?", "answer": "<p>Cela dépend du modèle choisi. Consultez la fiche produit pour les détails de connectique et de mise à jour.</p>" } }
+      },
+      "block_order": ["f1", "f2", "f3", "f4"],
+      "settings": {}
     },
     "related": {
-      "type": "related-products"
+      "type": "related-products",
+      "settings": {}
     },
     "final-cta": {
-      "type": "final-cta"
+      "type": "final-cta",
+      "settings": {}
     }
   },
   "order": [
